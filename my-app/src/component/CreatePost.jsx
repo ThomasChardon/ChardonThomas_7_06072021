@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import Banner from './Banner';
 import logo from '../assets/plants/logo.png'
 import Footer from './Footer.jsx'
 // import PostsList from './PostsList.jsx';
+
+let afficheImage = "Image Preview";
 
 function handleSubmit(e) {
     e.preventDefault()
@@ -10,15 +12,24 @@ function handleSubmit(e) {
 }
 
 
-
+// const CreatePost = props => {
 export default function CreatePost() {
-
+    const [selectedFile, setSelectedFile] = useState(null);
     const hiddenFileInput = React.useRef(null);
 
     const handleClick = event => {
         event.preventDefault()
         hiddenFileInput.current.click();
       };
+
+      const handleChange = event => {
+        const fileUploaded = event.target.files[0];
+        // this.props.handleFile(fileUploaded);
+        // console.log(fileUploaded);
+        console.log(fileUploaded.name);
+        afficheImage = fileUploaded.name;
+
+    };
 
   return (<div>
    			<Banner>
@@ -35,9 +46,11 @@ export default function CreatePost() {
                 </button>
                 <input type="file" 
                 ref={hiddenFileInput}
-                style={{display:'none'}}/>
+                // onChange={handleChange}
+                value={selectedFile}
+                onChange={(e) => setSelectedFile(e.target.files[0])}/>
 
-                <img src="imagePreview" alt="Votre post"/>
+                <img src={afficheImage} alt="Votre post"/>
 
                 <br/>
                 <button type='submit'>Poster !</button>
@@ -46,3 +59,5 @@ export default function CreatePost() {
    			<Footer />
    		</div>);
 }
+
+// export default CreatePost;
