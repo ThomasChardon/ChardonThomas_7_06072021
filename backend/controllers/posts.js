@@ -4,6 +4,7 @@
 
 
 // const express = require("express");
+const { now } = require("mongoose");
 const connection = require("../database");
 
 exports.GetAllPosts = (req, res, next) => {
@@ -21,6 +22,22 @@ exports.GetAllPosts = (req, res, next) => {
     // .catch(error => res.status(400).json({ error }));
   );
 };
+
+
+exports.CreatePost = (req, res, next) => {
+  var post = {title: req.body.title, user_creation: req.body.user, date_creation: now(), chein_image:`${req.protocol}://${req.get('host')}/images/${req.file.filename}`};
+  connection.query(
+    "INSERT INTO Posts SET ?", post,
+    (err, results, fields) => {
+      if (!err) {
+        res.send(results);
+      } else {
+        console.log("Une erreur est survenue : " + err);
+      }
+    }
+  );
+};
+
 
 
 // Router.post("/", (req, res) => {
@@ -96,6 +113,13 @@ exports.GetAllPosts = (req, res, next) => {
 // });
 
 // module.exports = Router;
+
+
+
+
+
+
+
 
 
 
