@@ -1,63 +1,71 @@
-import React, { useState } from "react";
+import React from "react";
 import Banner from './Banner';
 import logo from '../assets/plants/logo.png'
 import Footer from './Footer.jsx'
 // import PostsList from './PostsList.jsx';
 
-let afficheImage = "Image Preview";
 
-function handleSubmit(e) {
-    e.preventDefault()
-    alert(e.target['my_input'].value)
+
+// function handleSubmit(e) {
+//     e.preventDefault()
+//     // alert(e.target['my_input'].value)
+//     console.log(e);
+// }
+
+
+class CreatePost extends React.Component {
+    constructor(props){
+        super(props)
+        this.state = {
+          file: null,
+          titre: ""
+        }
+        this.handleChange = this.handleChange.bind(this);
+        this.handleFileChange = this.handleFileChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange(event) {
+        this.setState({value: event.target.value});
+      }
+    
+    handleFileChange(event) {
+        this.setState({
+          file: event.target.files[0].name
+        })
+        //marche, set le file a un blob contenant l'image
+        // this.setState({
+        //   file: URL.createObjectURL(event.target.files[0])
+        // })
+      }
+
+      handleSubmit(event) {
+        console.log('Le titre du post : ' + this.state.value + ', Limage liée : ' + this.state.file);
+        //Ici faire fetch en post
+        event.preventDefault();
+      }
+
+    render() {
+        return (<div>
+                    <Banner>
+                        <img src={logo} alt='La maison jungle' className='lmj-logo' />
+                        <h1 className='lmj-title'>Groupomania</h1>
+                    </Banner>
+                    <div className='lmj-layout-inner'>
+                        <form onSubmit={this.handleSubmit}>
+                        <input type='text' name='title' defaultValue={this.state.titre} onChange={this.handleChange}/>
+                        <br/>
+                        <input type="file" 
+                        name="chemin_image"
+                        onChange={this.handleFileChange}/>
+                        <img src={this.state.file} alt="Votre post"/>
+                        <br/>
+                        <button type='submit'>Poster !</button>
+                        </form>
+                    </div>
+                    <Footer />
+                </div>);
+            }
 }
 
-
-// const CreatePost = props => {
-export default function CreatePost() {
-    const [selectedFile, setSelectedFile] = useState(null);
-    const hiddenFileInput = React.useRef(null);
-
-    const handleClick = event => {
-        event.preventDefault()
-        hiddenFileInput.current.click();
-      };
-
-      const handleChange = event => {
-        const fileUploaded = event.target.files[0];
-        // this.props.handleFile(fileUploaded);
-        // console.log(fileUploaded);
-        console.log(fileUploaded.name);
-        afficheImage = fileUploaded.name;
-
-    };
-
-  return (<div>
-   			<Banner>
-   				<img src={logo} alt='La maison jungle' className='lmj-logo' />
-   				<h1 className='lmj-title'>Groupomania</h1>
-   			</Banner>
-   			<div className='lmj-layout-inner'>
-   				<form onSubmit={handleSubmit}>
-                <input type='text' name='newpost' defaultValue='Titre du post' />
-                <br/>
-
-                <button onClick={handleClick}>
-                    ADD IMAGE
-                </button>
-                <input type="file" 
-                ref={hiddenFileInput}
-                // onChange={handleChange}
-                value={selectedFile}
-                onChange={(e) => setSelectedFile(e.target.files[0])}/>
-
-                <img src={afficheImage} alt="Votre post"/>
-
-                <br/>
-                <button type='submit'>Poster !</button>
-                </form>
-   			</div>
-   			<Footer />
-   		</div>);
-}
-
-// export default CreatePost;
+export default CreatePost;
