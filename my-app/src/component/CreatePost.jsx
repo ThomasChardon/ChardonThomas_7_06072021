@@ -1,7 +1,8 @@
 import React from "react";
 import Banner from './Banner';
-import logo from '../assets/plants/logo.png'
-import Footer from './Footer.jsx'
+import logo from '../assets/plants/logo.png';
+import Footer from './Footer.jsx';
+import { dateDuJour } from './Functions.jsx';
 // import PostsList from './PostsList.jsx';
 
 
@@ -39,7 +40,7 @@ class CreatePost extends React.Component {
       }
 
       handleSubmit(event) {
-        console.log('Le titre du post : ' + this.state.value + ', Limage liée : ' + this.state.file);
+        console.log('Le titre du post : ' + this.state.value + ', Limage liée : ' + this.state.file + ', la date du jour : ' + dateDuJour());
         //Ici faire fetch en post
         event.preventDefault();
       }

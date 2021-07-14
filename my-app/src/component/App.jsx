@@ -1,17 +1,37 @@
 // Pour lancer l'app, se rendre dans my-app et taper npm start
 
-
-
 // import '../App.css';
+import React, { useEffect, useState } from 'react';
 import MonSwitch from "./MonSwitch";
 import '../styles/Layout.scss';
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import Login from "./Login.jsx";
 
 
+export default function App() {
 
-function App() {
+	const [connected, setConnected] = useState();
+
+	useEffect(() =>
+	{
+		if (sessionStorage.getItem('dataUser'))
+			setConnected(true);
+		else
+			setConnected(false);
+	}, [])
+
+
 	return (
 		<div >
-			<MonSwitch />
+			<BrowserRouter>
+			<Switch>
+				<Redirect exact from="/" to="/login" />
+				<Route exact path="/login" component={Login}/>
+				{connected ? <Route exact path="/" component={MonSwitch}/> : <Route exact path="/login" render={() => <h1>Vous devez être connecté pour voir les publications</h1>}/>}
+				<Route render={() => <h1>Page introuvable</h1>} />
+			</Switch>
+			</BrowserRouter>
+			{/* <MonSwitch /> */}
 		</div>
 	);
 }
@@ -30,5 +50,5 @@ function App() {
 // 	)
 // }
 
-export default App;
+// export default App;
 
