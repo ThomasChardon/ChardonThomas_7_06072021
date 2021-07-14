@@ -55,7 +55,7 @@ class PostsList extends Component {
             <h1>{post.titre}</h1>
 			<img className='image_post' src={require(`../assets/posts/${post.chemin_image}`).default} alt={`${post.titre} cover`} />
 			<br />
-			Créé par {post.user_creation}, le {sqlToJsDate(post.date_creation)}.
+			Créé par {post.user_creation}, le {sqlToJsDate(post.date_creation)} !
           </li>
         )}
       </ul>
