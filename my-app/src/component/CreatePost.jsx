@@ -17,7 +17,8 @@ class CreatePost extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-          file: null,
+          file: "",
+          filename: "",
           titre: ""
         }
         this.handleChange = this.handleChange.bind(this);
@@ -30,13 +31,11 @@ class CreatePost extends React.Component {
       }
     
     handleFileChange(event) {
-        this.setState({
-          file: event.target.files[0].name
-        })
         //marche, set le file a un blob contenant l'image
-        // this.setState({
-        //   file: URL.createObjectURL(event.target.files[0])
-        // })
+        this.setState({
+          file: URL.createObjectURL(event.target.files[0]),
+          filename: event.target.files[0].name
+        })
       }
 
       handleSubmit(event) {

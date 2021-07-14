@@ -25,7 +25,7 @@ exports.GetAllPosts = (req, res, next) => {
 
 
 exports.CreatePost = (req, res, next) => {
-  var post = {title: req.body.title, user_creation: req.body.user, date_creation: req.body.today, chemin_image:`${req.protocol}://${req.get('host')}/images/${req.file.filename}`};
+  var post = {title: req.body.title, user_creation: req.body.user, date_creation: req.body.today, chein_image:`${req.protocol}://${req.get('host')}/images/${req.file.filename}`};
   connection.query(
     "INSERT INTO Posts SET ?", post,
     (err, results, fields) => {

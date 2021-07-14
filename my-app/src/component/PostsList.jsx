@@ -53,7 +53,7 @@ class PostsList extends Component {
         {posts.map(post =>
           <li key={post.id}>
             <h1>{post.titre}</h1>
-			<img className='image_post' src={require(`../assets/posts/${post.chemin_image}`).default} alt={`${post.titre} cover`} />
+			<img className='image_post' src={`http://localhost:3000/images/${post.chemin_image}`} alt={`${post.titre} cover`} />
 			<br />
 			Créé par {post.user_creation}, le {sqlToJsDate(post.date_creation)} !
           </li>
