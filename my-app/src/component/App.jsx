@@ -1,7 +1,7 @@
 // Pour lancer l'app, se rendre dans my-app et taper npm start
 
 // import '../App.css';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import MonSwitch from "./MonSwitch";
 import '../styles/Layout.scss';
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
@@ -9,16 +9,25 @@ import Login from "./Login.jsx";
 
 
 export default function App() {
-
+	const [token, setToken] = useState();
 	const [connected, setConnected] = useState();
 
-	useEffect(() =>
-	{
-		if (sessionStorage.getItem('dataUser'))
-			setConnected(true);
-		else
-			setConnected(false);
-	}, [])
+  if(!token) {
+    return <Login setToken={setToken} />
+  }else {
+	setConnected(true);
+  }
+
+	
+	
+
+	// useEffect(() =>
+	// {
+	// 	if (sessionStorage.getItem('dataUser'))
+	// 		setConnected(true);
+	// 	else
+	// 		setConnected(false);
+	// }, [])
 
 
 	return (
