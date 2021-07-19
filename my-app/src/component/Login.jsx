@@ -109,6 +109,8 @@ async function loginUser(credentials) {
        console.log(token);
        if (token.error === 'Utilisateur non trouvé !') {
         return (<h1>Vous devez être connecté pour voir les publications</h1>);////Ne s'affiche pas
+       } else if (token === true) {
+           console.log("Token déja créé");
        } else {
            setToken(token);
        }
@@ -135,9 +137,8 @@ async function loginUser(credentials) {
    }
    
    Login.propTypes = {
-     setToken: PropTypes.func.isRequired
+     setToken: PropTypes.func
    };
-
 
 
 

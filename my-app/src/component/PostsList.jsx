@@ -3,7 +3,7 @@ import {sqlToJsDate} from './Functions.jsx';
 import '../styles/PostList.scss'
 import React, { Component } from 'react';
  
-const API = 'http://localhost:3000/?query=';
+const API = 'http://localhost:3000/Posts?query=';
 const DEFAULT_QUERY = 'redux';
 
 class PostsList extends Component {

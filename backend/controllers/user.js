@@ -29,10 +29,10 @@ exports.login = (req, res, next) => {
           if (req.body.username.toLowerCase() == results[0].user_mail) {
             console.log("Utilisateur ok");
             //check mot de passe + voir re render
-            console.log("Le champs result (BDD) user mail :");
-            console.log(results[0].user_mail);
-            console.log("Le champs result (BDD) user password :");
-            console.log(results[0].user_password);
+            // console.log("Le champs result (BDD) user mail :");
+            // console.log(results[0].user_mail);
+            // console.log("Le champs result (BDD) user password :");
+            // console.log(results[0].user_password);
             res.send(results);
           }
         } else {

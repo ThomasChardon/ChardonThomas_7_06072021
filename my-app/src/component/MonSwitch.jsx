@@ -8,10 +8,10 @@ export const MonSwitch = () => {
     return (<BrowserRouter>
         <NavBar />
         <Switch>
-          <Route path="/" component={Home} exact />
+          <Route path="/Posts" component={Home} exact />
           <Route path="/createPost" component={CreatePost} exact />
           {/* <Route path="/contacts" component={Contacts} exact /> */}
-          <Redirect to="/" />
+          <Redirect to="/Posts" />
         </Switch>
       </BrowserRouter>);
 }
