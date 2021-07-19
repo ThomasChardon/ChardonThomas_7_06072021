@@ -17,25 +17,28 @@ const User = require('../models/Users');
 //     .catch(error => res.status(500).json({ error })); 
 // };
 
+// exports.login = (req, res, next) => {
 exports.login = (req, res, next) => {
-  console.log("Le champs requête : " + req);
   var sql    = 'SELECT * FROM Users where user_mail = ' + connection.escape(req.body.username);
-  connection.query(sql, function (err, results, fields) {
-      if (!err) {
-        if (!results) {
-              return res.status(401).json({ error: 'Utilisateur non trouvé !' });
-            }
-        else {
-          res.send(results);
-          console.log("Le champs result :" + results);
+  connection.query(sql, function (err, results) {
+
+    if (err) throw err;
+      let longueur = results.length
+        if(longueur > 0){
+          console.log("Requete aboutie avec succes");
+          if (req.body.username.toLowerCase() == results[0].user_mail) {
+            console.log("Utilisateur ok");
+            //check mot de passe + voir re render
+            console.log("Le champs result (BDD) user mail :");
+            console.log(results[0].user_mail);
+            console.log("Le champs result (BDD) user password :");
+            console.log(results[0].user_password);
+            res.send(results);
+          }
+        } else {
+          return res.status(401).json({ error: 'Utilisateur non trouvé !' });
         }
-      } else {
-        console.log("Une erreur est survenue : " + err);
-      }
     });
-
-
-
 
 
 

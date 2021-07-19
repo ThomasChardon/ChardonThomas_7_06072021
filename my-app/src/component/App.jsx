@@ -15,6 +15,7 @@ export default function App() {
   if(!token) {
     return <Login setToken={setToken} />
   }else {
+	  console.log("connection réussie !");
 	setConnected(true);
   }
 

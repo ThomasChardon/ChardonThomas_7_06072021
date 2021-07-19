@@ -86,24 +86,17 @@ import PropTypes from 'prop-types';
 
 
 async function loginUser(credentials) {
-    console.log(credentials);
+    //ok
     return fetch('http://localhost:3000/login', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    //   body: credentials
+      headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(credentials)
     })
       .then(data => data.json())
-    //     .then(response => {
-    //     const reader = response.body.getReader()
-    // console.log(reader)})
-    //   .then(truc => console.log(truc.body))
 }
    
    export default function Login({ setToken }) {
-     const [username, setUserName] = useState();
+     const [username, setUserName] = useState(setToken ? true : false);
      const [password, setPassword] = useState();
    
      const handleSubmit = async e => {
@@ -112,8 +105,13 @@ async function loginUser(credentials) {
          username,
          password
        });
+       console.log("le token : ");
        console.log(token);
-       setToken(token);
+       if (token.error === 'Utilisateur non trouvé !') {
+        return (<h1>Vous devez être connecté pour voir les publications</h1>);////Ne s'affiche pas
+       } else {
+           setToken(token);
+       }
      }
    
      return(
