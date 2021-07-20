@@ -6,8 +6,9 @@ function Banner() {
         {/* <h1>Groupomania</h1> */}
         <div className="todo">
             <ul>
-                <li >Projet</li>
-                <li className='Done'>Mettre le projet sur GitHub</li>
+                <li >bugs</li>
+                <li className='not-Done'>Login affichage erreur lorsque connexion KO</li>
+                <li className='not-Done'>Login proptype isrequired ne marche pas</li>
             </ul>
         </div>
         <div className="todo">
