@@ -6,7 +6,6 @@ import MonSwitch from "./MonSwitch";
 import '../styles/Layout.scss';
 import { Switch, Route, Redirect } from "react-router-dom";
 import Login from "./Login.jsx";
-import Signup from "./Signup.jsx";
 
 export default function App() {
 	const [token, setToken] = useState();
@@ -27,7 +26,6 @@ export default function App() {
 			<Switch>
 				<Redirect exact from="/" to="/login" />
 				<Route exact path="/login" component={Login}/>
-				<Route exact path="/signup" component={Signup}/>
 				{connected ? <Redirect to="/Posts" component={MonSwitch}/> : <Route exact path="/Posts" render={() => <h1>Vous devez être connecté pour voir les publications</h1>}/>}
 				<Route render={() => <h1>Page introuvable</h1>} />
 			</Switch>

@@ -16,7 +16,7 @@ function Banner() {
                 <li >Front_end</li>
                 <li className='Done'>Changer les extentions des fichiers</li>
                 <li className='Done'>Afficher les posts des utilisateurs</li>
-                <li className='not-Done'>Réorganiser le front-end (CSS)</li>
+                <li className='almost-Done'>Réorganiser le front-end (CSS)</li>
                 <li className='Done'>Fetch les données du back-end</li>
                 <li className='Done'>Nettoyer dossier (fichiers exercice plantes)</li>
                 <li className='not-Done'>optionnel : faire animations</li>
@@ -26,7 +26,7 @@ function Banner() {
             <ul>
                 <li >Back_end</li>
                 <li className='Done'>Se connecter à la BDD</li>
-                <li className='not-Done'>Définir les routes</li>
+                <li className='almost-Done'>Définir les routes</li>
                 <li className='not-Done'>Définir la logique creation modification posts</li>
                 <li className='not-Done'>Définir la logique creation modification users</li>
                 <li className='Done'>Gérer les images/gifs</li>
