@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import '../styles/Login.scss';
 import PropTypes from 'prop-types';
-
+import Layout from './Layout.jsx';
+import Signup from './Signup.jsx';
 
 async function loginUser(credentials) {
     return fetch('http://localhost:3000/login', {
@@ -33,8 +34,11 @@ async function loginUser(credentials) {
            setToken(token);
        }
      }
+
    
      return(
+       <Layout>
+
        <div className="login_form">
          <h1>Veuillez vous connecter</h1>
          <form onSubmit={handleSubmit}>
@@ -47,10 +51,17 @@ async function loginUser(credentials) {
              <input type="password" onChange={e => setPassword(e.target.value)} />
            </label>
            <div>
-             <button type="submit"  >Submit</button>
+             <button type="submit" >Connexion</button>
            </div>
          </form>
+         {/* <form onSubmit={createUser}>
+         <p>Vous n'avez pas de compte ? Vous pouvez en créer un : </p>
+         <button type="submit" >Création</button>
+         </form> */}
+         {/* <p>Vous n'avez pas de compte ? Vous pouvez en créer un : </p> */}
+         {/* <Link to="/signup" className="btn btn-primary">Création</Link> */}
        </div>
+       </Layout>
      )
    }
    

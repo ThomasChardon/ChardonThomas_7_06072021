@@ -2,11 +2,11 @@
 import Home from "./Home.jsx";
 import CreatePost from "./CreatePost.jsx";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
-import NavBar from "./Navbar";
+
 
 export const MonSwitch = () => {
     return (<BrowserRouter>
-        <NavBar />
+        
         <Switch>
           <Route path="/Posts" component={Home} exact />
           <Route path="/createPost" component={CreatePost} exact />

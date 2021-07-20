@@ -18,6 +18,44 @@ const User = require('../models/Users');
 // };
 
 // exports.login = (req, res, next) => {
+exports.signup = (req, res, next) => {
+  console.log(req.body);
+  var post  = {user_name: "test", user_mail: req.body.username, user_password: req.body.password, };
+  var query = connection.query('INSERT INTO Users SET ?', post, function (error, results, fields) {
+  if (error) throw error;
+  else {
+    console.log("Requete jouée : ");
+    console.log(query.sql); // INSERT INTO Users SET `user_name` = 'user', `user_mail` = 'mail', user_password = le mot de passe
+    res.status(201).json({ message: 'Utilisateur créé !' })
+  }
+  // Neat!
+  });
+
+
+
+  // var sql    = 'INSERT INTO Users SET ?', post ;
+  // // var sql    = 'INSERT INTO Users (user_name, user_password) VALUES ('Thomas@gmail.com', 'Thomas')' + connection.escape(req.body.username);
+  // connection.query(sql, function (err, results) {
+
+  //   if (err) throw err;
+  //     let longueur = results.length
+  //       if(longueur > 0){
+  //         console.log("Requete aboutie avec succes");
+  //         if (req.body.username.toLowerCase() == results[0].user_mail) {
+  //           console.log("Utilisateur ok");
+  //           //check mot de passe + voir re render
+  //           // console.log("Le champs result (BDD) user mail :");
+  //           // console.log(results[0].user_mail);
+  //           // console.log("Le champs result (BDD) user password :");
+  //           // console.log(results[0].user_password);
+  //           res.send(results);
+  //         }
+  //       } else {
+  //         return res.status(401).json({ error: 'Utilisateur non trouvé !' });
+  //       }
+  //   });
+  };
+
 exports.login = (req, res, next) => {
   var sql    = 'SELECT * FROM Users where user_mail = ' + connection.escape(req.body.username);
   connection.query(sql, function (err, results) {
