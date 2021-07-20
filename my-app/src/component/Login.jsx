@@ -27,6 +27,8 @@ async function registerUser(credentials) {
      const [usermail, setUserMail] = useState();
      const [password, setPassword] = useState();
      const [register, setRegistration] = useState(true);
+     const [errorMessageUser, setErrorMessageUser] = React.useState("");
+     const [errorMessage, setErrorMessage] = React.useState("");
    
      const handleSubmit = async e => {
        e.preventDefault();
@@ -37,8 +39,10 @@ async function registerUser(credentials) {
        console.log("le token : ");
        console.log(token);
        if (token.error === 'Utilisateur non trouvé !') {
-        ////Ne s'affiche pas mais je rentre bien dans la boucle
-        return (<h2>Vous devez être connecté pour voir les publications</h2>);
+        setErrorMessageUser("Le mail que vous avez entré n'existe pas");
+       } else if (token.error === 'Mot de passe incorrect !') {
+        setErrorMessageUser("");
+        setErrorMessage("Le mot de passe que vous avez entré est incorrect");
        } else if (token === true) {
            console.log("Token déja créé");
        } else {
@@ -55,9 +59,8 @@ async function registerUser(credentials) {
        });
        console.log("le token : ");
        console.log(token);
-       if (token.error === 'Utilisateur non trouvé !') {
-        ////Ne s'affiche pas mais je rentre bien dans la boucle
-        return (<h2>Vous devez être connecté pour voir les publications</h2>);
+       if (token.error) {
+        console.log("Une erreur est survenue");
        } else if (token === true) {
            console.log("Token déja créé");
        } else {
@@ -83,10 +86,12 @@ async function registerUser(credentials) {
            <label>
              <p>Adresse mail :</p>
              <input type="text" onChange={e => setUserName(e.target.value)} />
+             {errorMessageUser && <div className="error"> {errorMessageUser} </div>}
            </label>
            <label>
              <p>Mot de passe :</p>
              <input type="password" onChange={e => setPassword(e.target.value)} />
+             {errorMessage && <div className="error"> {errorMessage} </div>}
            </label>
            <div>
              <button type="submit" >Connexion</button>

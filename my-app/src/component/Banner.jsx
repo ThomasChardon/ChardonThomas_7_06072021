@@ -6,9 +6,11 @@ function Banner() {
         {/* <h1>Groupomania</h1> */}
         <div className="todo">
             <ul>
-                <li >bugs</li>
+                <li >bugs et autres</li>
                 <li className='not-Done'>Login affichage erreur lorsque connexion KO</li>
                 <li className='not-Done'>Login proptype isrequired ne marche pas</li>
+                <li className='not-Done'>comment limiter les posts a un certain nombre
+                <br/> et si besoin diriger vers des pages suivantes</li>
             </ul>
         </div>
         <div className="todo">

@@ -1,0 +1,13 @@
+.groupo_header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .groupo-logo {
+        height: 200px;
+        width: 600px;
+        margin:auto;
+    }
+    .groupo-title {
+        margin:auto;
+    }
+}

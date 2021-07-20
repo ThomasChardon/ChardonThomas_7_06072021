@@ -1,14 +1,15 @@
 import '../styles/Header.scss'
 import Banner from './Banner.jsx';
-import logo from '../assets/plants/logo.png'
+import logo from '../assets/icon-left-font.png'
 
 function Header() {
 	return (
         <header>
-            <Banner>
-   				<img src={logo} alt='Groupomania logo' className='lmj-logo' />
-   				<h1 className='lmj-title'>Groupomania</h1>
-   			</Banner>
+            <div className="groupo_header">
+   				<img src={logo} alt='Groupomania logo' className='groupo-logo' />
+   				<h1 className='groupo-title'>Les posts de Groupomania :</h1>
+            </div>
+            <Banner/>
         </header>
 	)
 }

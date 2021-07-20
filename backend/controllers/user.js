@@ -35,7 +35,9 @@ exports.login = (req, res, next) => {
           if (!valid) {
             return res.status(401).json({ error: 'Mot de passe incorrect !' });
           }
-          res.send(results); // mot de passes ok
+          else {
+            res.send(results); // mot de passes ok
+          }
         })
         .catch(error => res.status(500).json({ error }));
       }
