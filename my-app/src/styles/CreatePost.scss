@@ -1,0 +1,35 @@
+.create_post {
+    width: 800px;
+    height: 800px;
+    margin:auto;
+    p {
+        width: 535px;
+        margin:auto;
+        font-size: 1.5em;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+    .create_post_titre {
+        display: flex;
+        width: 500px;
+        height: 50px;
+        margin:auto;
+        font-size:2em;
+    }
+    .button_create_post_image{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 200px;
+        height: 30px;
+        margin: auto;
+        color: transparent;
+    }
+    .button_create_post_image_hide{
+        display:none;
+    }
+    .create_post_image {
+        width: 500px;
+        height: 500px;
+    }
+}

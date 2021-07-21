@@ -1,8 +1,8 @@
 import React from "react";
-import Banner from './Banner';
-import logo from '../assets/plants/logo.png';
-import Footer from './Footer.jsx';
 import { dateDuJour } from './Functions.jsx';
+import NavBar from './Navbar.jsx';
+import Layout from './Layout.jsx';
+import '../styles/CreatePost.scss';
 // import PostsList from './PostsList.jsx';
 
 
@@ -47,23 +47,24 @@ class CreatePost extends React.Component {
 
     render() {
         return (<div>
-                    <Banner>
-                        <img src={logo} alt='La maison jungle' className='lmj-logo' />
-                        <h1 className='lmj-title'>Groupomania</h1>
-                    </Banner>
-                    <div className='lmj-layout-inner'>
+                  <Layout>
+                  <NavBar />
+                    <div className='create_post'>
                         <form onSubmit={this.handleSubmit}>
-                        <input type='text' name='title' defaultValue={this.state.titre} onChange={this.handleChange}/>
-                        <br/>
-                        <input type="file" 
-                        name="chemin_image"
-                        onChange={this.handleFileChange}/>
-                        <img src={this.state.file} alt="Votre post"/>
-                        <br/>
-                        <button type='submit'>Poster !</button>
+                          <p>Indiquez le titre de votre Post (50 caractères max) :</p>
+                          <input className="create_post_titre" type='text' name='title' defaultValue={this.state.titre} onChange={this.handleChange}/>
+                          {/* <br/> */}
+                          <p>Choisissez votre image/gif :</p>
+                          <input className="button_create_post_image"
+                          type="file"
+                          name="chemin_image"
+                          onChange={this.handleFileChange}/>
+                          <img className="create_post_image" src={this.state.file} alt="Votre post"/>
+                          <br/>
+                          <button type='submit'>Poster !</button>
                         </form>
                     </div>
-                    <Footer />
+                  </Layout>
                 </div>);
             }
 }

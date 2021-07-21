@@ -11,6 +11,7 @@ function Banner() {
                 <li className='not-Done'>Login proptype isrequired ne marche pas</li>
                 <li className='not-Done'>comment limiter les posts a un certain nombre
                 <br/> et si besoin diriger vers des pages suivantes</li>
+                <li className='not-Done'>vérifier tous les formulaires</li>
             </ul>
         </div>
         <div className="todo">

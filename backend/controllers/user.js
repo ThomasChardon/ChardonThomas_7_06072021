@@ -27,21 +27,21 @@ exports.login = (req, res, next) => {
     if (err) throw err;
     let longueur = results.length
     if(longueur > 0){
-      console.log("Requete aboutie avec succes");
       if (req.body.username.toLowerCase() == results[0].user_mail) {
-        console.log("Utilisateur ok");
         bcrypt.compare(req.body.password, results[0].user_password)
         .then(valid => {
           if (!valid) {
             return res.status(401).json({ error: 'Mot de passe incorrect !' });
           }
           else {
-            res.send(results); // mot de passes ok
+            console.log("Utilisateur et mot de passe OK");
+            res.send(results);
           }
         })
         .catch(error => res.status(500).json({ error }));
       }
     } else {
+      console.log("Requete aboutie sans succes !");
       return res.status(401).json({ error: 'Utilisateur non trouvé !' });
     }
   });
