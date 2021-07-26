@@ -53,7 +53,7 @@ class PostsList extends Component {
         {posts.map(post =>
           <li key={post.id}>
             <h1 className='post_titre'>{post.titre}</h1>
-			<img className='post_image' src={`http://localhost:3000/images/${post.chemin_image}`} alt={`${post.titre} cover`} />
+			<img className='post_image' src={`http://localhost:3000/images/${post.chemin_image}`} alt={`${post.titre} cover`} onClick={() => this.props.afficheUnPost(true)}/>
 			<br />
       <div className="post_legende">
 			  Créé par {post.user_creation}, le {sqlToJsDate(post.date_creation)} !

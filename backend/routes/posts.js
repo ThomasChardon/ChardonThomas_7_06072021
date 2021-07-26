@@ -12,7 +12,7 @@ router.get('/Posts', stuffCtrl.GetAllPosts);
 // router.get('/', auth, stuffCtrl.GetAllPosts);
 router.post('/createPost', multer, stuffCtrl.CreatePost);
 // router.post('/create', auth, multer, stuffCtrl.CreatePost);
-// router.get('/:id', auth, stuffCtrl.GetOneThing);
+router.get('/Posts/:id', stuffCtrl.GetOnePosts);
 // router.put('/:id', auth, multer, stuffCtrl.modifyThing);
 // router.delete('/:id', auth, stuffCtrl.deleteThing);
 // router.post('/:id/like', auth, stuffCtrl.likeThing);

@@ -7,6 +7,21 @@
 const { now } = require("mongoose");
 const connection = require("../database");
 
+exports.GetOnePosts = (req, res, next) => {
+  const sql    = 'SELECT * FROM Posts where id = ' + connection.escape(req.params.id);
+  connection.query(sql, function (err, results) {
+      if (!err) {
+        console.log(results[0]);
+        res.send(results[0]);
+      } else {
+        console.log("Une erreur est survenue : " + err);
+      }
+    }
+    // .then(allposts => res.status(200).json(allposts))
+    // .catch(error => res.status(400).json({ error }));
+  );
+};
+
 exports.GetAllPosts = (req, res, next) => {
   connection.query(
     "SELECT * FROM Posts",

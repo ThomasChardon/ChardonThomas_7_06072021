@@ -10,7 +10,7 @@ export default function Home() { //ajouter state : si cliqué afficher 1 éléme
 	  		<Layout>
 			  <NavBar />
    			<div className='lmj-layout-inner'>
-			   {unPost ? <OnePost /> : <PostsList />}
+			   {unPost ? <OnePost afficherUnPost={afficherUnPost}/> : <PostsList afficheUnPost={afficherUnPost}/>}
    				
    			</div>
 			  </Layout>
