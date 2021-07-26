@@ -12,6 +12,7 @@ function Banner() {
                 <li className='not-Done'>comment limiter les posts a un certain nombre
                 <br/> et si besoin diriger vers des pages suivantes</li>
                 <li className='not-Done'>vérifier tous les formulaires</li>
+                <li className='not-Done'>mot de passe oublié</li>
             </ul>
         </div>
         <div className="todo">

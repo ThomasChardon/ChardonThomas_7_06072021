@@ -20,7 +20,10 @@ class CreatePost extends React.Component {
         this.state = {
           file: "",
           filename: "",
-          titre: ""
+          titre: "",
+          datedujour: dateDuJour(),
+          userCreation: "tom@gmail.com",
+          userId: 6,
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleFileChange = this.handleFileChange.bind(this);
@@ -40,9 +43,17 @@ class CreatePost extends React.Component {
       }
 
       handleSubmit(event) {
-        console.log('Le titre du post : ' + this.state.value + ', Limage liée : ' + this.state.file + ', la date du jour : ' + dateDuJour());
-        //Ici faire fetch en post
+        console.log('Le titre du post : ' + this.state.value + ', Limage liée : ' + this.state.file + ', la date du jour : ' + this.state.datedujour);
+        // console.log(this.state);
         event.preventDefault();
+        fetch('http://localhost:3000/createPost', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(this.state), dateDuJour
+        })
+        .then(data => data.json())
+        .then(reponse => console.log(reponse.insertId)) // j'obtiens ici l'id du post en question
+        // then aller a la page de l'id du post
       }
 
     render() {

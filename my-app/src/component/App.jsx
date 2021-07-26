@@ -15,6 +15,7 @@ export default function App() {
     return <Login setToken={setToken} />
   }else if (connected) {
 	  console.log("connection réussie !!");
+	  console.log(token);
 	  return <MonSwitch />
   }else {
 	  console.log("connection réussie !");
@@ -26,7 +27,7 @@ export default function App() {
 			<Switch>
 				<Redirect exact from="/" to="/login" />
 				<Route exact path="/login" component={Login}/>
-				{connected ? <Redirect to="/Posts" component={MonSwitch}/> : <Route exact path="/Posts" render={() => <h1>Vous devez être connecté pour voir les publications</h1>}/>}
+				{connected ? <Redirect to="/Posts" component={MonSwitch}/> : <Login setToken={setToken} />}
 				<Route render={() => <h1>Page introuvable</h1>} />
 			</Switch>
 			{/* <MonSwitch /> */}

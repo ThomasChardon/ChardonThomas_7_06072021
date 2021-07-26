@@ -25,11 +25,13 @@ exports.GetAllPosts = (req, res, next) => {
 
 
 exports.CreatePost = (req, res, next) => {
-  var post = {title: req.body.title, user_creation: req.body.user, date_creation: req.body.today, chein_image:`${req.protocol}://${req.get('host')}/images/${req.file.filename}`};
+  console.log(req.body);
+  var post = {titre: req.body.value, user_creation: req.body.userCreation, date_creation: req.body.datedujour, chemin_image:req.body.filename, user_id:req.body.userId};
   connection.query(
     "INSERT INTO Posts SET ?", post,
     (err, results, fields) => {
       if (!err) {
+        console.log(results);
         res.send(results);
       } else {
         console.log("Une erreur est survenue : " + err);

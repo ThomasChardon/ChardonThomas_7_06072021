@@ -35,7 +35,15 @@ exports.login = (req, res, next) => {
           }
           else {
             console.log("Utilisateur et mot de passe OK");
-            res.send(results);
+            res.status(200).json({
+              userId: results[0].user_name,
+              token: jwt.sign(
+                  { userId: results[0].user_name },
+                  'RANDOM_TOKEN_SECRET',
+                  { expiresIn: '24h' }
+                )
+            });
+            // res.send(results);// jswt !!
           }
         })
         .catch(error => res.status(500).json({ error }));
@@ -46,3 +54,6 @@ exports.login = (req, res, next) => {
     }
   });
 };
+
+
+

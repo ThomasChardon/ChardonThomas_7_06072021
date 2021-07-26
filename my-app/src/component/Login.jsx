@@ -46,7 +46,7 @@ async function registerUser(credentials) {
        } else if (token === true) {
            console.log("Token déja créé");
        } else {
-           setToken(token);
+           setToken(token); 
        }
      }
 
@@ -126,6 +126,6 @@ async function registerUser(credentials) {
    }
    
    Login.propTypes = {
-     setToken: PropTypes.func
+     setToken: PropTypes.func.isRequired
     //  setToken: PropTypes.func.isRequired // marche pas ?
    };
