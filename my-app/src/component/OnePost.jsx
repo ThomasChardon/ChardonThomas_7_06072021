@@ -1,6 +1,7 @@
 import {sqlToJsDate} from './Functions.jsx';
 import '../styles/OnePost.scss'
 import React, { Component } from 'react';
+import { Animate }  from 'react-simple-animate';
  
 // const API = 'http://localhost:3000/Posts?query=';
 // const DEFAULT_QUERY = 'redux';
@@ -50,12 +51,18 @@ class OnePost extends Component {
     }
 
     return (
+        <Animate
+			play={true}
+			duration={1}
+			start={{ opacity: 0.5, filter: 'blur(10px)' }}
+  			end={{ opacity: 1, filter: 'blur(0)' }}
+		>
         <div className="UnPost">
             {posts.map(post =>
             <div key={post.id}>
                 <button onClick={() => this.props.afficherUnPost(false)}>Fermer Post</button>
                 <h1 className='post_titre'>{post.titre}</h1>
-                <img className='post_image' src={`http://localhost:3000/images/${post.chemin_image}`} alt={`${post.titre} cover`} />
+                <img className='post_image' src={`http://localhost:3000/images/${post.chemin_image}`} alt={`${post.titre} cover`} onClick={() => this.props.afficherUnPost(false)}/>
                 <br />
                 <div className="post_legende">
                 Créé par {post.user_creation}, le {sqlToJsDate(post.date_creation)} !
@@ -63,6 +70,7 @@ class OnePost extends Component {
             </div>
             )}
         </div>
+		</Animate>
     );
   }
 }
