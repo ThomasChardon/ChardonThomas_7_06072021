@@ -14,7 +14,6 @@ export default function App() {
   if(!token) {
     return <Login setToken={setToken} />
   }else if (connected) {
-	  console.log("connection réussie !!");
 	  console.log(token);
 	  return <MonSwitch />
   }else {

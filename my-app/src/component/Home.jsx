@@ -6,11 +6,12 @@ import OnePost from './OnePost.jsx';
 
 export default function Home() { //ajouter state : si cliqué afficher 1 élément si non postlist
 	const [unPost, afficherUnPost] = useState(false);
+	const [postid, chooseId] = useState(0);
   return (<div>
 	  		<Layout>
 			  <NavBar />
    			<div className='lmj-layout-inner'>
-			   {unPost ? <OnePost afficherUnPost={afficherUnPost}/> : <PostsList afficheUnPost={afficherUnPost}/>}
+			   {unPost ? <OnePost afficherUnPost={afficherUnPost} postid={postid}/> : <PostsList afficheUnPost={afficherUnPost} chooseId={chooseId}/>}
    				
    			</div>
 			  </Layout>

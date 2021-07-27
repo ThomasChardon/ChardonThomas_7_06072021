@@ -9,7 +9,7 @@ const DEFAULT_QUERY = 'redux';
 class PostsList extends Component {
   constructor(props) {
     super(props);
- 
+    this.ChoisirId = this.ChoisirId.bind(this);
     this.state = {
       posts: [],
       isLoading: false,
@@ -35,7 +35,10 @@ class PostsList extends Component {
       .catch(error => this.setState({ error, isLoading: false }));
 	  
   }
-
+  ChoisirId(id) {
+    this.props.afficheUnPost(true);
+    this.props.chooseId(id);
+  }
  
   render() {
     const { posts, isLoading, error } = this.state; 
@@ -53,7 +56,7 @@ class PostsList extends Component {
         {posts.map(post =>
           <li key={post.id}>
             <h1 className='post_titre'>{post.titre}</h1>
-			<img className='post_image' src={`http://localhost:3000/images/${post.chemin_image}`} alt={`${post.titre} cover`} onClick={() => this.props.afficheUnPost(true)}/>
+			<img className='post_image' src={`http://localhost:3000/images/${post.chemin_image}`} alt={`${post.titre} cover`} onClick={() => this.ChoisirId(post.id) }/>
 			<br />
       <div className="post_legende">
 			  Créé par {post.user_creation}, le {sqlToJsDate(post.date_creation)} !

@@ -8,11 +8,13 @@ const { now } = require("mongoose");
 const connection = require("../database");
 
 exports.GetOnePosts = (req, res, next) => {
+  console.log(req.body);
   const sql    = 'SELECT * FROM Posts where id = ' + connection.escape(req.params.id);
   connection.query(sql, function (err, results) {
       if (!err) {
-        console.log(results[0]);
-        res.send(results[0]);
+        // console.log(results[0]);
+        console.log(results);
+        res.send(results);
       } else {
         console.log("Une erreur est survenue : " + err);
       }
@@ -27,6 +29,7 @@ exports.GetAllPosts = (req, res, next) => {
     "SELECT * FROM Posts",
     (err, results, fields) => {
       if (!err) {
+        console.log(results);
         res.send(results);
         // console.log(results);
       } else {
@@ -41,7 +44,7 @@ exports.GetAllPosts = (req, res, next) => {
 
 exports.CreatePost = (req, res, next) => {
   console.log(req.body);
-  var post = {titre: req.body.value, user_creation: req.body.userCreation, date_creation: req.body.datedujour, chemin_image:req.body.filename, user_id:req.body.userId};
+  var post = {titre: req.body.value, user_creation: req.body.userCreation, date_creation: req.body.datedujour, commentaires:"", chemin_image:req.body.filename, user_id:req.body.userId};
   connection.query(
     "INSERT INTO Posts SET ?", post,
     (err, results, fields) => {
@@ -55,36 +58,23 @@ exports.CreatePost = (req, res, next) => {
   );
 };
 
-
-
-// Router.post("/", (req, res) => {
-//   let qb = req.body;
-//   const sql =
-//     "SET @ID = ?;SET @Name = ?;SET @Position = ?;SET @Team = ?;SET @OpposingTeam = ?;SET @JodySmith = ?;SET @EricMoody = ?;SET @JohnFerguson = ?;SET @FantasyData = ?; CALL Add_or_Update_QB(@ID, @Name, @Position, @Team, @OpposingTeam, @JodySmith, @EricMoody, @JohnFerguson, @FantasyData);";
-//   mysqlConnection.query(
-//     sql,
-//     [
-//       qb.ID,
-//       qb.Name,
-//       qb.Position,
-//       qb.Team,
-//       qb.OpposingTeam,
-//       qb.JodySmith,
-//       qb.EricMoody,
-//       qb.JohnFerguson,
-//       qb.FantasyData,
-//     ],
-//     (err, results, fields) => {
-//       if (!err) {
-//         results.forEach((element) => {
-//           if (element.constructor == Array) res.send(element);
-//         });
-//       } else {
-//         console.log(err);
-//       }
-//     }
-//   );
-// });
+exports.createSauce = (req, res, next) => {
+  const sauceObject = JSON.parse(req.body.sauce);
+  const sauce = new Sauce({
+    ...sauceObject,
+    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+    likes: 0,
+    dislikes: 0,
+    usersLiked: [],
+    usersDisliked: []
+  });
+  sauce.save()
+    .then(() => res.status(201).json({ message: 'Objet enregistré !'}))
+    .catch(error => {
+      console.log(error);
+      res.status(400).json({ error })
+    } );
+};
 
 // Router.put("/", (req, res) => {
 //   let qb = req.body;

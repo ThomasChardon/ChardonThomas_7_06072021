@@ -36,8 +36,6 @@ async function registerUser(credentials) {
          username,
          password
        });
-       console.log("le token : ");
-       console.log(token);
        if (token.error === 'Utilisateur non trouvé !') {
         setErrorMessageUser("Le mail que vous avez entré n'existe pas");
        } else if (token.error === 'Mot de passe incorrect !') {
