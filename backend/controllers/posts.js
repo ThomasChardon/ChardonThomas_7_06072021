@@ -1,4 +1,4 @@
-// const fs = require('fs');
+const fs = require('fs');
 // const Post = require('../models/Posts');
 
 
@@ -29,7 +29,6 @@ exports.GetAllPosts = (req, res, next) => {
     "SELECT * FROM Posts",
     (err, results, fields) => {
       if (!err) {
-        console.log(results);
         res.send(results);
         // console.log(results);
       } else {
@@ -43,19 +42,43 @@ exports.GetAllPosts = (req, res, next) => {
 
 
 exports.CreatePost = (req, res, next) => {
-  console.log(req.body);
-  var post = {titre: req.body.value, user_creation: req.body.userCreation, date_creation: req.body.datedujour, commentaires:"", chemin_image:req.body.filename, user_id:req.body.userId};
-  connection.query(
-    "INSERT INTO Posts SET ?", post,
-    (err, results, fields) => {
-      if (!err) {
-        console.log(results);
-        res.send(results);
-      } else {
-        console.log("Une erreur est survenue : " + err);
-      }
-    }
-  );
+  let post = {titre: req.body.value, user_creation: req.body.userCreation, date_creation: req.body.datedujour, commentaires:"", chemin_image:req.body.filename, user_id:req.body.userId};
+  console.log("req.body");
+  console.log(req.body.file);
+  console.log("req.file");
+  console.log(req.file);
+  // console.log(req);
+  const decoupenom = req.body.filename.split('.');
+  const extension = decoupenom[1];
+  const nomfichier = decoupenom[0] + '_' + Date.now() + '.' + extension;
+
+  const filepath = `./images/`;
+  // console.log("Mon path : ");
+  // console.log(filepath + nomfichier);
+
+  fs.writeFile(filepath + nomfichier, new Buffer.from(req.body.file, "base64"), err => {   
+    if (err) {return console.log(err);}
+    else { console.log("ecriture supposee reussie")}
+    })
+
+    // .then(() => res.status(201).json({ message: 'Objet enregistré !'}))
+    // .catch(error => {
+    //   console.log(error);
+    //   res.status(400).json({ error })
+    // } );
+
+
+  // connection.query(
+  //   "INSERT INTO Posts SET ?", post,
+  //   (err, results, fields) => {
+  //     if (!err) {
+  //       console.log(results);
+  //       res.send(results);
+  //     } else {
+  //       console.log("Une erreur est survenue : " + err);
+  //     }
+  //   }
+  // );
 };
 
 exports.createSauce = (req, res, next) => {

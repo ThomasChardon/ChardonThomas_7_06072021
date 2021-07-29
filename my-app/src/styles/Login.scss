@@ -1,6 +1,6 @@
-.login_form, .signup_form {
+.login_form, .signup_form, .password_oublie {
     width: 800px;
-    height: 800px;
+    height: 1100px;
     margin-left: auto;
     margin-right: auto;
     display: flex;
@@ -33,12 +33,22 @@
         height: 50px;
         font-size   : 2em;
         margin: auto;
-        margin-top:50px;
+        margin-top:30px;
     }
 }
 
 .signup_form {
-    height: 900px;
+    height: 1100px;
+    .button_cancel {
+        color: blue;
+    }
+}
+
+.password_oublie {
+    height: 600px;
+    form {
+        height: 300px;
+    }
     .button_cancel {
         color: blue;
     }

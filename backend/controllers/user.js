@@ -27,7 +27,12 @@ exports.login = (req, res, next) => {
     if (err) throw err;
     let longueur = results.length
     if(longueur > 0){
+      console.log(req.body.password);
       if (req.body.username.toLowerCase() == results[0].user_mail) {
+        if (req.body.password === "") {
+          console.log("mot de passe vide");
+          return res.status(401).json({ error: 'Le mot de passe que vous avez entré est vide' });
+        }
         bcrypt.compare(req.body.password, results[0].user_password)
         .then(valid => {
           if (!valid) {
@@ -38,22 +43,69 @@ exports.login = (req, res, next) => {
             res.status(200).json({
               userId: results[0].user_name,
               token: jwt.sign(
-                  { userId: results[0].user_name },
-                  'RANDOM_TOKEN_SECRET',
-                  { expiresIn: '24h' }
+                { userId: results[0].user_name },
+                'RANDOM_TOKEN_SECRET',
+                { expiresIn: '24h' }
                 )
-            });
-            // res.send(results);// jswt !!
-          }
-        })
-        .catch(error => res.status(500).json({ error }));
+              });
+            }
+          })
+          .catch(error => res.status(500).json({ error }));
+        }
+      } else {
+        console.log("Requete aboutie sans succes !");
+        return res.status(401).json({ error: 'Utilisateur non trouvé !' });
       }
+    });
+  };
+  
+  exports.mdpOublie = (req, res, next) => {
+    var sql    = 'SELECT * FROM Users where user_mail = ' + connection.escape(req.body.usermail);
+    connection.query(sql, function (err, results) {
+      if (err) throw err;
+    let longueur = results.length
+    if(longueur > 0){
+      // user trouvé
+      const nouveauMDP = "nouveauMDP"; // a modifier pour variable
+      bcrypt.hash(nouveauMDP, 10) 
+        .then(hash => {
+        const motdepasse = hash
+        var post  = {user_password: motdepasse };
+        var query = connection.query('UPDATE Users SET ?  WHERE user_name = ?', [post, results[0].user_mail], function (error, results, fields) {
+        if (error) throw error;
+        else {
+          console.log("Requete jouée : ");
+          console.log(query.sql); // INSERT INTO Users SET `user_name` = 'user', `user_mail` = 'mail', user_password = le mot de passe
+          // res.status(201).json({ message: 'Mot de passe envoyé !' })
+        }
+      // Neat!
+      });
+    });
+      // créer mot de passe, le hacher, modifier dans la bdd, l'envoyer
+      console.log(results);
+      // res.status(200).json()
     } else {
-      console.log("Requete aboutie sans succes !");
-      return res.status(401).json({ error: 'Utilisateur non trouvé !' });
-    }
-  });
-};
+        console.log("Requete aboutie sans succes !");
+        return res.status(401).json({ error: 'Utilisateur non trouvé !' });
+      }
+    })
 
-
-
+    console.log(req.body);
+    // bcrypt.hash(req.body.password, 10) 
+    //   .then(hash => {
+    //     const motdepasse = hash
+    //     var post  = {user_name: req.body.username, user_mail: req.body.usermail, user_password: motdepasse };
+    //     var query = connection.query('INSERT INTO Users SET ?', post, function (error, results, fields) {
+    //     if (error) throw error;
+    //     else {
+    //       console.log("Requete jouée : ");
+    //       console.log(query.sql); // INSERT INTO Users SET `user_name` = 'user', `user_mail` = 'mail', user_password = le mot de passe
+    //       res.status(201).json({ message: 'Utilisateur créé !' })
+    //     }
+    // // Neat!
+    //   });
+    // });
+  };
+  
+  
+  
