@@ -3,7 +3,7 @@
 // import '../App.css';
 import React, { useState } from 'react';
 import MonSwitch from "./MonSwitch";
-import '../styles/Layout.scss';
+import '../styles/App.scss';
 import { Switch, Route, Redirect } from "react-router-dom";
 import Login from "./Login.jsx";
 

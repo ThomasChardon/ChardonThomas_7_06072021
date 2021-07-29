@@ -13,12 +13,15 @@ const API = 'http://localhost:3000/Posts/' ;
 class OnePost extends Component {
   constructor(props) {
     super(props);
+    this.AjouterCommentaire = this.AjouterCommentaire.bind(this);
+    this.PosternouveauCom = this.PosternouveauCom.bind(this);
 
     this.state = {
       posts: [],
       isLoading: false,
       error: null,
       commentaires: [],
+      nouveaucom: "",
     };
   }
 
@@ -38,11 +41,16 @@ class OnePost extends Component {
       .catch(error => this.setState({ error, isLoading: false }));
   }
 
-  // fermerPost() {
-  //   () => {this.props.afficherUnPost(false);} 
+  AjouterCommentaire(event) {
+    this.setState({nouveaucom: event.target.value});
+  }
 
-  // }
-
+  PosternouveauCom(event) {
+    event.preventDefault();
+    console.log(this.state.nouveaucom) //ok
+    //envoyer com en BDD
+    //refresh la page après
+  }
  
   render() {
     const { posts, commentaires, isLoading, error } = this.state; 
@@ -86,6 +94,12 @@ class OnePost extends Component {
               )}
               </ul>
               <div>Ajouter un commentaire :</div>
+              <form onSubmit={this.PosternouveauCom}>
+                <input className="create_comm" type='text' name='nouveaucom' defaultValue={this.nouveaucom} onChange={this.AjouterCommentaire}/>
+                {/* <br/> */}
+                <br/>
+                <button type='submit'>Ajouter le commentaire</button>
+                </form>
             </div>
         </div>
 		</Animate>
