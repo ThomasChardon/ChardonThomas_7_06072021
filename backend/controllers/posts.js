@@ -12,9 +12,17 @@ exports.GetOnePosts = (req, res, next) => {
   const sql    = 'SELECT * FROM Posts where id = ' + connection.escape(req.params.id);
   connection.query(sql, function (err, results) {
       if (!err) {
-        // console.log(results[0]);
-        // console.log(results);
-        res.send(results);
+        const Post = {};
+        Post.post = results;
+        const sqlcom    = 'SELECT * FROM Commentaires where id_post = ' + connection.escape(req.params.id);
+        connection.query(sqlcom, function (err, resultas) {
+          if (!err) {
+            Post.comment = resultas;
+            res.send(Post);
+          } else {
+            console.log("Les commentaires n'ont pas pu être chargés : " + err);
+          }
+        })
       } else {
         console.log("Une erreur est survenue : " + err);
       }
@@ -23,6 +31,7 @@ exports.GetOnePosts = (req, res, next) => {
     // .catch(error => res.status(400).json({ error }));
   );
 };
+
 
 exports.GetAllPosts = (req, res, next) => {
   connection.query(

@@ -7,21 +7,21 @@ import { Animate }  from 'react-simple-animate';
 // const DEFAULT_QUERY = 'redux';
 
 const API = 'http://localhost:3000/Posts/' ;
+// const APIcom = 'http://localhost:3000/PostsCom/' ;
     const DEFAULT_QUERY = 'redux';
 
 class OnePost extends Component {
   constructor(props) {
     super(props);
- 
+
     this.state = {
       posts: [],
       isLoading: false,
       error: null,
+      commentaires: [],
     };
   }
 
-  
- 
   componentDidMount() {
     this.setState({ isLoading: true });
 
@@ -34,14 +34,18 @@ class OnePost extends Component {
         }
     })
       .then(data => 
-		  this.setState({ posts: data, isLoading: false }))
+		  this.setState({ posts: data.post, commentaires: data.comment, isLoading: false }))
       .catch(error => this.setState({ error, isLoading: false }));
-	  
   }
+
+  // fermerPost() {
+  //   () => {this.props.afficherUnPost(false);} 
+
+  // }
 
  
   render() {
-    const { posts, isLoading, error } = this.state; 
+    const { posts, commentaires, isLoading, error } = this.state; 
     if (error) {
       return <p>{error.message}</p>;
     }
@@ -60,7 +64,9 @@ class OnePost extends Component {
         <div className="UnPost">
             {posts.map(post =>
             <div key={post.id}>
-                <button onClick={() => this.props.afficherUnPost(false)}>Fermer Post</button>
+                <div className="legende_fermer_post">Fermer le post&nbsp;<button className="button_fermer_post" onClick={() => this.props.afficherUnPost(false)}>X</button>
+                </div>
+                <br/>
                 <h1 className='post_titre'>{post.titre}</h1>
                 <img className='post_image' src={`http://localhost:3000/images/${post.chemin_image}`} alt={`${post.titre} cover`} onClick={() => this.props.afficherUnPost(false)}/>
                 <br />
@@ -68,7 +74,19 @@ class OnePost extends Component {
                 Créé par {post.user_creation}, le {sqlToJsDate(post.date_creation)} !
                 </div>
             </div>
-            )}
+            )
+            }
+            <div className="post_commentaires">
+              <ul>
+              {commentaires.map(comment =>
+                <li key={`${comment.id}-${comment.date_creation}`}>
+                  Le {sqlToJsDate(comment.date_creation)}, {comment.user_name} a écrit : <br/>
+                  {comment.comment}
+                </li>
+              )}
+              </ul>
+              <div>Ajouter un commentaire :</div>
+            </div>
         </div>
 		</Animate>
     );
@@ -76,3 +94,5 @@ class OnePost extends Component {
 }
 
 export default OnePost;
+
+

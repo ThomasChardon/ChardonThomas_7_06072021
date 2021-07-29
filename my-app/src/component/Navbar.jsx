@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import '../styles/Navbar.scss'
 
 const NavBar = () => {
   return (
@@ -12,7 +13,7 @@ const NavBar = () => {
           <Link to="/createPost">Ajouter un post</Link>
         </li>
         {/* <li>
-          <Link to="/contacts">Contacts</Link>
+          <Link to="/Profile">Profil</Link>
         </li> */}
       </ul>
     </div>

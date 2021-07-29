@@ -1,6 +1,7 @@
 
 
 .UnPost {
+	width: 900px;
 	margin:auto;
 	list-style-type: none;
 	.post_titre {
@@ -18,5 +19,17 @@
 		display: flex;
 		justify-content:flex-end;
 		font-size: 1.5em;
+	}
+	.legende_fermer_post {
+		display: flex;
+		float: right;
+		font-size: 2em;
+	}
+	.button_fermer_post {
+		float: right;
+		font-size: 1em;
+		height: 50px;
+		width: 50px;
+		background-color:#f03f22;
 	}
 }
