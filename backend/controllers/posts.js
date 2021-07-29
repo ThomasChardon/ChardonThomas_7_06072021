@@ -8,12 +8,12 @@ const { now } = require("mongoose");
 const connection = require("../database");
 
 exports.GetOnePosts = (req, res, next) => {
-  console.log(req.body);
+  // console.log(req.body);
   const sql    = 'SELECT * FROM Posts where id = ' + connection.escape(req.params.id);
   connection.query(sql, function (err, results) {
       if (!err) {
         // console.log(results[0]);
-        console.log(results);
+        // console.log(results);
         res.send(results);
       } else {
         console.log("Une erreur est survenue : " + err);
@@ -42,11 +42,14 @@ exports.GetAllPosts = (req, res, next) => {
 
 
 exports.CreatePost = (req, res, next) => {
-  let post = {titre: req.body.value, user_creation: req.body.userCreation, date_creation: req.body.datedujour, commentaires:"", chemin_image:req.body.filename, user_id:req.body.userId};
-  console.log("req.body");
-  console.log(req.body.file);
-  console.log("req.file");
-  console.log(req.file);
+  let post = {titre: req.body.titre, user_creation: req.body.userCreation, date_creation: req.body.datedujour, commentaires:"", chemin_image:req.body.filename, user_id:req.body.userId};
+  
+  // console.log("Date du jour :");
+  // console.log(Date.now());
+  // console.log("req.body");
+  console.log(req.body);
+  // console.log("req.file");
+  // console.log(req.file);
   // console.log(req);
   const decoupenom = req.body.filename.split('.');
   const extension = decoupenom[1];
@@ -56,10 +59,11 @@ exports.CreatePost = (req, res, next) => {
   // console.log("Mon path : ");
   // console.log(filepath + nomfichier);
 
-  fs.writeFile(filepath + nomfichier, new Buffer.from(req.body.file, "base64"), err => {   
-    if (err) {return console.log(err);}
-    else { console.log("ecriture supposee reussie")}
-    })
+  //semble marcher mais le fichier non
+  // fs.writeFile(filepath + nomfichier, new Buffer.from(req.body.file, "base64"), err => {   
+  //   if (err) {return console.log(err);}
+  //   else { console.log("ecriture supposee reussie")}
+  //   })
 
     // .then(() => res.status(201).json({ message: 'Objet enregistré !'}))
     // .catch(error => {
@@ -68,17 +72,17 @@ exports.CreatePost = (req, res, next) => {
     // } );
 
 
-  // connection.query(
-  //   "INSERT INTO Posts SET ?", post,
-  //   (err, results, fields) => {
-  //     if (!err) {
-  //       console.log(results);
-  //       res.send(results);
-  //     } else {
-  //       console.log("Une erreur est survenue : " + err);
-  //     }
-  //   }
-  // );
+  connection.query(
+    "INSERT INTO Posts SET ?", post,
+    (err, results, fields) => {
+      if (!err) {
+        console.log(results);
+        res.send(results);
+      } else {
+        console.log("Une erreur est survenue : " + err);
+      }
+    }
+  );
 };
 
 exports.createSauce = (req, res, next) => {
