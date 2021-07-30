@@ -109,21 +109,36 @@ exports.login = (req, res, next) => {
       }
     })
 
-    // console.log(req.body);
-    // bcrypt.hash(req.body.password, 10) 
-    //   .then(hash => {
-    //     const motdepasse = hash
-    //     var post  = {user_name: req.body.username, user_mail: req.body.usermail, user_password: motdepasse };
-    //     var query = connection.query('INSERT INTO Users SET ?', post, function (error, results, fields) {
-    //     if (error) throw error;
-    //     else {
-    //       console.log("Requete jouée : ");
-    //       console.log(query.sql); // INSERT INTO Users SET `user_name` = 'user', `user_mail` = 'mail', user_password = le mot de passe
-    //       res.status(201).json({ message: 'Utilisateur créé !' })
-    //     }
-    // // Neat!
-    //   });
-    // });
+  };
+  
+  exports.updateProfile = (req, res, next) => {
+    console.log(req.body);
+    //voir les champs
+    var sql    = 'SELECT * FROM Users where id = ' + connection.escape(req.body.userId);
+    connection.query(sql, function (err, results) {
+      if (err) throw err;
+    let longueur = results.length
+    if(longueur > 0){
+      // user trouvé
+      if (req.body.username) { //si on modifie le nom d'utilisateur
+        var donnees  = {user_name: req.body.username };
+      }
+      if (req.body.usermail) { //si on modifie le ail
+        var donnees  = {user_mail: req.body.usermail };
+      }
+      connection.query('UPDATE Users SET ?  WHERE user_name = ?', [donnees, connection.escape(req.body.userId)], function (error, results, fields) {
+        if (error) throw error;
+        else {
+          //si pas d'erreur update ok ?
+          console.log("update ok !");
+        }
+      })
+    } else {
+        console.log("Requete aboutie sans succes !");
+        return res.status(401).json({ error: 'Utilisateur non trouvé !' });
+      }
+    })
+
   };
   
   
