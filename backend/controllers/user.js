@@ -3,6 +3,32 @@ const jwt = require('jsonwebtoken');
 const connection = require("../database");
 const User = require('../models/Users');
 
+
+exports.verifToken = (req, res, next) => {
+
+
+    // console.log(req);
+    console.log(req.body);
+    res.status(200).json({reponse : "Connexion maintenue"})
+    // try {
+    //   const token = req.body.token; 
+    //   console.log("le token contenant le header :");
+    //   console.log(token);
+    //   const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET'); 
+    //   const userId = decodedToken.userId;
+    //   if (req.body.userId && req.body.userId !== userId) {
+    //     throw 'Invalid user ID';
+    //   } else {
+    //     console.log("jwt oooook");
+    //     res.status(200).json({reponse : "Connexion maintenue"})
+    //   }
+    // } catch {
+    //   res.status(401).json({
+    //     error: new Error('Invalid request!')
+    //   });
+    // }
+};
+
 exports.signup = (req, res, next) => {
   console.log(req.body);
   bcrypt.hash(req.body.password, 10) 
@@ -27,7 +53,6 @@ exports.login = (req, res, next) => {
     if (err) throw err;
     let longueur = results.length
     if(longueur > 0){
-      console.log(req.body.password);
       if (req.body.username.toLowerCase() == results[0].user_mail) {
         if (req.body.password === "") {
           console.log("mot de passe vide");
@@ -41,9 +66,9 @@ exports.login = (req, res, next) => {
           else {
             console.log("Utilisateur et mot de passe OK");
             res.status(200).json({
-              userId: results[0].user_name,
+              userId: results[0].id,
               token: jwt.sign(
-                { userId: results[0].user_name },
+                { userId: results[0].id },
                 'RANDOM_TOKEN_SECRET',
                 { expiresIn: '24h' }
                 )
@@ -90,7 +115,7 @@ exports.login = (req, res, next) => {
       }
     })
 
-    console.log(req.body);
+    // console.log(req.body);
     // bcrypt.hash(req.body.password, 10) 
     //   .then(hash => {
     //     const motdepasse = hash

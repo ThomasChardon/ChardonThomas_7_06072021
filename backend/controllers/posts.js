@@ -56,7 +56,7 @@ exports.CreatePost = (req, res, next) => {
   // console.log("Date du jour :");
   // console.log(Date.now());
   // console.log("req.body");
-  console.log(req.body);
+  // console.log(req.body);
   // console.log("req.file");
   // console.log(req.file);
   // console.log(req);

@@ -29,23 +29,37 @@ export default function App() {
 	// }, [token, connected])
 
 	if (sessionStorage.getItem('dataUser')) {
-		console.log(sessionStorage.getItem('dataUser'))
-		//verif token ?
+		let veriftoken = window.sessionStorage.getItem('dataUser');
+		fetch('http://localhost:3000/', {
+      	method: 'POST',
+      	headers: {'Content-Type': 'text/plain'},
+     	body: veriftoken,
+    })
+      .then(data => data.json())
+	  .then((token) => {if (token.reponse === "Connexion maintenue") {
+		setConnected(true);
+	}})
+	if (connected) {
+		console.log("connection déja existante");
+		  return <MonSwitch />
+		}
+	else {
+		return <Login setToken={setToken} />
+		}
 	}
 
-  if(!token) {
-	sessionStorage.clear();
-    return <Login setToken={setToken} />
-  }else if (connected) {
-	//   console.log(token);
-	  return <MonSwitch />
-	}else {
-		console.log("connection réussie !");
-		const letoken = JSON.stringify(token.token);
-		console.log(letoken);
-	sessionStorage.setItem('dataUser', letoken)
-	setConnected(true);
-  }
+	if(!token) {
+	  sessionStorage.clear();
+	  return <Login setToken={setToken} />
+	}else if (connected) {
+	  console.log("connection réussie !");
+	  const letoken = JSON.stringify(token);
+	  window.sessionStorage.setItem('dataUser', letoken)
+		return <MonSwitch />
+	  }else {
+	  setConnected(true);
+	}
+
 
 	return (
 		<div >

@@ -58,7 +58,6 @@ async function passwordForgot(credentials) {
            console.log("Token déja créé");
        } else {
          setToken(token); 
-         sessionStorage.setItem('dataUser', token);
        }
      }
 

@@ -15,14 +15,14 @@ class PostsList extends Component {
       isLoading: false,
       error: null,
     };
-  }
+  } 
 
   
  
   componentDidMount() {
     this.setState({ isLoading: true });
 
-    fetch(API + DEFAULT_QUERY)
+    fetch(API + DEFAULT_QUERY, { headers: { Authorization: window.sessionStorage.getItem('dataUser') }})
     .then(response => {
       if (response.ok) {
         return response.json();
