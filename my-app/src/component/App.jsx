@@ -11,29 +11,13 @@ export default function App() {
 	const [token, setToken] = useState("");
 	const [connected, setConnected] = useState();
 
-	// useEffect(() =>
-	// {
-	// 	if (sessionStorage.getItem('dataUser')) {
-
-	// 		setConnected(true);
-	// 	}
-	// 	else {
-	// 		setConnected(false);
-	// 		return <Login setToken={setToken} />
-	// 	}
-
-	// 	if (connected) {
-	// 		console.log(token);
-	// 		return <MonSwitch />
-	// 	}
-	// }, [token, connected])
-
 	if (sessionStorage.getItem('dataUser')) {
-		let veriftoken = window.sessionStorage.getItem('dataUser');
+		let veriftoken = JSON.parse(window.sessionStorage.getItem('dataUser'));
 		fetch('http://localhost:3000/', {
       	method: 'POST',
-      	headers: {'Content-Type': 'text/plain'},
-     	body: veriftoken,
+      	// headers: {'Content-Type': 'text/plain'},
+      	headers: {'Content-Type': 'application/json'},
+     	body: JSON.stringify(veriftoken),
     })
       .then(data => data.json())
 	  .then((token) => {if (token.reponse === "Connexion maintenue") {

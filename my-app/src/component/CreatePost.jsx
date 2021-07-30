@@ -1,5 +1,5 @@
 import React from "react";
-import { dateDuJour } from './Functions.jsx';
+import { dateDuJour, getUserId } from './Functions.jsx';
 import NavBar from './Navbar.jsx';
 import Layout from './Layout.jsx';
 import '../styles/CreatePost.scss';
@@ -15,8 +15,7 @@ class CreatePost extends React.Component {
           filename: "",
           titre: "",
           datedujour: dateDuJour(),
-          userCreation: "tom@gmail.com",
-          userId: 6,
+          userId:  getUserId(),
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleFileChange = this.handleFileChange.bind(this);
@@ -55,7 +54,6 @@ class CreatePost extends React.Component {
       //   formdata.append('titre', this.state.titre)
       //   formdata.append('filename', this.state.filename)
       //   formdata.append('datedujour', dateDuJour())
-      //   formdata.append('userCreation', "tom@gmail.com")
       //   formdata.append('userId', this.state.userId)
 
       //   for(var pair of formdata.entries()) {
@@ -73,7 +71,8 @@ class CreatePost extends React.Component {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         // headers: {'Content-Type': 'multipart/form-data'},
-        body: JSON.stringify(this.state)
+        body: JSON.stringify(this.state),
+        Authorization: window.sessionStorage.getItem('dataUser')
         })
         .then(data => data.json())
         .then(reponse => console.log(reponse)) // j'obtiens ici l'id du post en question

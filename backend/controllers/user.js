@@ -5,28 +5,22 @@ const User = require('../models/Users');
 
 
 exports.verifToken = (req, res, next) => {
-
-
-    // console.log(req);
-    console.log(req.body);
-    res.status(200).json({reponse : "Connexion maintenue"})
-    // try {
-    //   const token = req.body.token; 
-    //   console.log("le token contenant le header :");
-    //   console.log(token);
-    //   const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET'); 
-    //   const userId = decodedToken.userId;
-    //   if (req.body.userId && req.body.userId !== userId) {
-    //     throw 'Invalid user ID';
-    //   } else {
-    //     console.log("jwt oooook");
-    //     res.status(200).json({reponse : "Connexion maintenue"})
-    //   }
-    // } catch {
-    //   res.status(401).json({
-    //     error: new Error('Invalid request!')
-    //   });
-    // }
+    // console.log(req.body);
+    try {
+      const token = req.body.token; 
+      const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET'); 
+      const userId = decodedToken.userId;
+      if (req.body.userId && req.body.userId !== userId) {
+        throw 'Invalid user ID';
+      } else {
+        console.log("jwt ok - verif token");
+        res.status(200).json({reponse : "Connexion maintenue"})
+      }
+    } catch {
+      res.status(401).json({
+        error: new Error('Invalid request!')
+      });
+    }
 };
 
 exports.signup = (req, res, next) => {

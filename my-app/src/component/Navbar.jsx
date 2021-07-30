@@ -12,9 +12,9 @@ const NavBar = () => {
         <li>
           <Link to="/createPost">Ajouter un post</Link>
         </li>
-        {/* <li>
-          <Link to="/Profile">Profil</Link>
-        </li> */}
+        <li>
+          <Link to="/Profil">Profil</Link>
+        </li>
       </ul>
     </div>
   );

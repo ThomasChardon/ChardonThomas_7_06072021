@@ -9,9 +9,9 @@ const stuffCtrl = require('../controllers/posts');
 
 // router.get('/Posts', stuffCtrl.GetAllPosts);
 router.get('/Posts', auth, stuffCtrl.GetAllPosts);
-router.get('/Posts/:id', stuffCtrl.GetOnePosts);
+router.get('/Posts/:id', auth, stuffCtrl.GetOnePosts);
 // router.get('/', auth, stuffCtrl.GetAllPosts);
-router.post('/createPost',  stuffCtrl.CreatePost);
+router.post('/createPost', auth, stuffCtrl.CreatePost);
 // router.post('/create', auth, multer, stuffCtrl.CreatePost);
 // router.put('/:id', auth, multer, stuffCtrl.modifyThing);
 // router.delete('/:id', auth, stuffCtrl.deleteThing);

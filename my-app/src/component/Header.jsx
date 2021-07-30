@@ -7,7 +7,7 @@ function Header() {
         <header>
             <div className="groupo_header">
    				<img src={logo} alt='Groupomania logo' className='groupo-logo' />
-   				<h1 className='groupo-title'>Les posts :</h1>
+   				{/* <h1 className='groupo-title'>Les posts :</h1> */}
             </div>
             <Banner/>
         </header>

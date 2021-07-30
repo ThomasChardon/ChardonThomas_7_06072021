@@ -41,3 +41,8 @@ export function dateDuJour(){
     today = yyyy+'-'+mm+'-'+dd;
     return today;
 };
+
+export function getUserId() {
+    let dataUser = JSON.parse(sessionStorage.getItem('dataUser'));
+    return dataUser.userId;
+}

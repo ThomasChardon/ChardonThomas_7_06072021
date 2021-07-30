@@ -28,7 +28,7 @@ class OnePost extends Component {
   componentDidMount() {
     this.setState({ isLoading: true });
 
-    fetch(API + this.props.postid + DEFAULT_QUERY)
+    fetch(API + this.props.postid + DEFAULT_QUERY, { headers: { Authorization: window.sessionStorage.getItem('dataUser') }})
     .then(response => {
         if (response.ok) {
             return response.json();
