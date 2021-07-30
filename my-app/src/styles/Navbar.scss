@@ -11,7 +11,7 @@
       }
       
       li {
-          width: 33%;
+          width: 30%;
         float: left;
         font-size: 2em;
       }
@@ -27,5 +27,8 @@
       /* Change the link color to #111 (black) on hover */
       li a:hover {
         background-color: #111;
+      }
+      .Deconnexion {
+        width: 10%;
       }
 }
