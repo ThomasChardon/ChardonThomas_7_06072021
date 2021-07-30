@@ -24,6 +24,7 @@ exports.verifToken = (req, res, next) => {
 };
 
 exports.signup = (req, res, next) => {
+  //VERIFIER SI MAIL EXISTE PAS DEJA
   console.log(req.body);
   bcrypt.hash(req.body.password, 10) 
     .then(hash => {
