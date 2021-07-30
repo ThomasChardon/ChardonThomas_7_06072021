@@ -18,7 +18,7 @@ async function registerUser(credentials) {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(credentials)
-    })
+    }) 
       .then(data => data.json())
 }
 
@@ -57,7 +57,8 @@ async function passwordForgot(credentials) {
        } else if (token === true) {
            console.log("Token déja créé");
        } else {
-           setToken(token); 
+         setToken(token); 
+         sessionStorage.setItem('dataUser', token);
        }
      }
 
