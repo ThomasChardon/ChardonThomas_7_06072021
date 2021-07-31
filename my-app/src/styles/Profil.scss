@@ -1,0 +1,39 @@
+.Profil {
+    width: 700px;
+    height: 900px;
+    margin: auto;
+    margin-top: 20px;
+    .Profil_Pseudo, .Profile_mail, .Profile_change_password {
+        font-size: 3em;
+        margin-top: 20px;
+    }
+    .Profile_change_password {
+        margin-top: 100px;
+    }
+    input {
+        font-size: 1em;
+        width: 700px;
+    }
+    .Button_profil {
+        display: flex;
+        justify-content: space-evenly;
+        background-color: #f03f22;
+        border-radius: 12px;
+        border: none;
+        width: 200px;
+        height: 60px;
+        font-size: 0.7em;
+        opacity: 0.6;
+        transition: 0.3s;
+        display: inline-block;
+        text-decoration: none;
+        cursor: pointer;
+        &:hover {
+            opacity: 1
+        }
+    }
+}
+
+.legende_modif_profil {
+    font-size: 0.5em;
+}

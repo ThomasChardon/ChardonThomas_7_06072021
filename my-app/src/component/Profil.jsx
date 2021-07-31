@@ -4,9 +4,12 @@ import Layout from './Layout.jsx';
 import { getUserId } from './Functions.jsx';
 import '../styles/Profil.scss'
 
+const API = 'http://localhost:3000/Profile/' ;
+const DEFAULT_QUERY = 'redux';
+
 async function fetchuser(credentials) {
     return fetch('http://localhost:3000/Profile', {
-      method: 'POST',
+      method: 'PUT',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(credentials)
     })
@@ -16,42 +19,81 @@ async function fetchuser(credentials) {
 
 
 export default function Profil() {
+    const userId = getUserId();
     const [username, setUserName] = useState("");
     const [usermail, setUserMail] = useState("");
-    const [password, setPassword] = useState("");
-    console.log(getUserId());
+    const [newusername, setNewUserName] = useState("");
+    const [newusermail, setNewUserMail] = useState("");
+    // const [password, setPassword] = useState("");
+
+    // console.log(userid); //ok
     //fetch infos user
+    fetch(API + userId + DEFAULT_QUERY, { headers: { Authorization: window.sessionStorage.getItem('dataUser') }})
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error('Something went wrong ...');
+        }
+    })
+    //   .then(data => data.json())
+      .then((datas) => {
+        setUserName(datas[0].user_name);
+        setUserMail(datas[0].user_mail);
+      })
+      
 
-
-    const handleSubmit = async e => {
+    const handleSubmitName = async e => {
         e.preventDefault();
         const resultat = await fetchuser({
-          username,
-          password
+            userId,
+            newusername,
         });
-        //les lignes suivantes sont pour eviter les warnings le temps du dev
-        console.log("le resultat : ");
-        console.log(resultat);
-        if (resultat.ok ) {
-            setUserName("toto");
-            setUserMail("tata");
-            setPassword("titi");
+        if (resultat === "Modifications effectuée !" ) {
+            setUserName(newusername);
        }
     }
 
+    const handleSubmitMail = async e => {
+        e.preventDefault();
+        const resultat = await fetchuser({
+            userId,
+            newusermail,
+        });
+        if (resultat === "Modifications effectuée !" ) {
+            setUserMail(newusermail);
+       }
+    }
+    
     return (
         <Layout>
             <NavBar />
             <div className='Profil'>
-                <div className="Pseudo">
+                <div className="Profil_Pseudo">
                     Nom d'utilisateur : {username}
-                    <button onClick={handleSubmit}>Changer </button>
+                    <br/>
+                    <br/>
+                    <div className="legende_modif_profil">
+                    Changer de nom ?
+                    </div>
+                    <input type='text' onChange={(e) => {setNewUserName(e.target.value)}}></input>
+                    <button className="Button_profil" onClick={handleSubmitName}>Changer</button>
                 </div>
                 <div className="Profile_mail">
                     Adresse email : {usermail}
+                    <br/>
+                    <br/>
+                    <div className="legende_modif_profil">
+                    Changer d'adresse mail ?
+                    </div>
+                    <input type='text' onChange={(e) => {setNewUserMail(e.target.value)}}></input>
+                    <button className="Button_profil" onClick={handleSubmitMail}>Changer</button>
                 </div>
                 <div className="Profile_change_password">
-                    Changer de mot de passe :
+                    <div className="legende_modif_profil">
+                    Changer de mot de passe ? Attention, cela enverra un mail de réinitialisation de mot de passe à votre adresse mail.
+                    </div>
+                    <button className="Button_profil" >Envoyer</button>
                 </div>
             </div>
             

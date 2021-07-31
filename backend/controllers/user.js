@@ -13,7 +13,6 @@ exports.verifToken = (req, res, next) => {
       if (req.body.userId && req.body.userId !== userId) {
         throw 'Invalid user ID';
       } else {
-        console.log("jwt ok - verif token");
         res.status(200).json({reponse : "Connexion maintenue"})
       }
     } catch {
@@ -111,27 +110,42 @@ exports.login = (req, res, next) => {
     })
 
   };
+
+  exports.getProfile = (req, res, next) => {
+    var sql    = 'SELECT * FROM Users where id = ' + connection.escape(req.params.id);
+    connection.query(sql, function (err, results) {
+      if (err) throw err;
+    let longueur = results.length
+    if(longueur > 0){
+      // user trouvé
+      res.send(results);
+    } else {
+        console.log("Requete aboutie sans succes !");
+        return res.status(401).json({ error: 'Utilisateur non trouvé !' });
+      }
+    })
+  }
   
   exports.updateProfile = (req, res, next) => {
-    console.log(req.body);
-    //voir les champs
     var sql    = 'SELECT * FROM Users where id = ' + connection.escape(req.body.userId);
     connection.query(sql, function (err, results) {
       if (err) throw err;
     let longueur = results.length
     if(longueur > 0){
       // user trouvé
-      if (req.body.username) { //si on modifie le nom d'utilisateur
-        var donnees  = {user_name: req.body.username };
+      // console.log(results);
+      if (req.body.newusername) { //si on modifie le nom d'utilisateur
+        var donnees  = {user_name: req.body.newusername };
       }
-      if (req.body.usermail) { //si on modifie le ail
-        var donnees  = {user_mail: req.body.usermail };
+      if (req.body.newusermail) { //si on modifie le ail
+        var donnees  = {user_mail: req.body.newusermail };
       }
-      connection.query('UPDATE Users SET ?  WHERE user_name = ?', [donnees, connection.escape(req.body.userId)], function (error, results, fields) {
+      console.log(donnees);
+      connection.query('UPDATE Users SET ?  WHERE id = ?', [donnees, connection.escape(req.body.userId)], function (error, results, fields) {
         if (error) throw error;
         else {
-          //si pas d'erreur update ok ?
           console.log("update ok !");
+          res.status(200).json("Modifications effectuée !")
         }
       })
     } else {
