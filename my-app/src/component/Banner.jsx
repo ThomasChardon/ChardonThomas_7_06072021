@@ -9,7 +9,7 @@ function Banner() {
                 <li >TO DO</li>
                 <li className='not-Done'>vérifier tous les formulaires</li>
                 <li className='not-Done'>mot de passe oublié</li>
-                <li className='not-Done'>creation user verif mail existant</li>
+                <li className='Done'>creation user verif mail existant</li>
                 
             </ul>
         </div>
@@ -17,7 +17,7 @@ function Banner() {
             <ul>
                 <li >Front_end</li>
                 <li className='almost-Done'>Réorganiser le front-end (CSS)</li>
-                <li className='not-Done'>onglet profil (crud)</li>
+                <li className='Done'>onglet profil (crud)</li>
             </ul>
         </div>
         <div className="todo">

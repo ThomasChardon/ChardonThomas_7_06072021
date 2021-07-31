@@ -72,8 +72,6 @@ async function passwordForgot(credentials) {
        console.log(token);
        if (token.error) {
         console.log("Une erreur est survenue");
-      //  } else if (token === true) {
-      //      console.log("Token déja créé");
        } else {
           window.sessionStorage.clear();
           console.log(token);
