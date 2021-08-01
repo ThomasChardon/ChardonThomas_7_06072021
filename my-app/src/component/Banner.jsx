@@ -18,13 +18,14 @@ function Banner() {
                 <li >Front_end</li>
                 <li className='almost-Done'>Réorganiser le front-end (CSS)</li>
                 <li className='Done'>onglet profil (crud)</li>
+                <li className='not-Done'>suppression de posts</li>
             </ul>
         </div>
         <div className="todo">
             <ul>
                 <li >Back_end</li>
                 <li className='almost-Done'>Finir CRUD</li>
-                <li className='not-Done'>Gérer les images/gifs</li>
+                <li className='Done'>Gérer les images/gifs</li>
             </ul>
         </div>
     </div>

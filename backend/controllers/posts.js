@@ -35,7 +35,7 @@ exports.GetOnePosts = (req, res, next) => {
 
 exports.GetAllPosts = (req, res, next) => {
   connection.query(
-    "SELECT * FROM Posts",
+    "SELECT * FROM Posts ORDER BY id DESC",
     (err, results, fields) => {
       if (!err) {
         res.send(results);
@@ -71,72 +71,6 @@ exports.CreatePost = (req, res, next) => {
     }
   );
 };
-
-exports.createSauce = (req, res, next) => {
-  const sauceObject = JSON.parse(req.body.sauce);
-  const sauce = new Sauce({
-    ...sauceObject,
-    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-    likes: 0,
-    dislikes: 0,
-    usersLiked: [],
-    usersDisliked: []
-  });
-  sauce.save()
-    .then(() => res.status(201).json({ message: 'Objet enregistré !'}))
-    .catch(error => {
-      console.log(error);
-      res.status(400).json({ error })
-    } );
-};
-
-// Router.put("/", (req, res) => {
-//   let qb = req.body;
-//   const sql =
-//     "SET @ID = ?;SET @Name = ?;SET @Position = ?;SET @Team = ?;SET @OpposingTeam = ?;SET @JodySmith = ?;SET @EricMoody = ?;SET @JohnFerguson = ?;SET @FantasyData = ?; CALL Add_or_Update_QB(@ID, @Name, @Position, @Team, @OpposingTeam, @JodySmith, @EricMoody, @JohnFerguson, @FantasyData);";
-//   mysqlConnection.query(
-//     sql,
-//     [
-//       qb.ID,
-//       qb.Name,
-//       qb.Position,
-//       qb.Team,
-//       qb.OpposingTeam,
-//       qb.JodySmith,
-//       qb.EricMoody,
-//       qb.JohnFerguson,
-//       qb.FantasyData,
-//     ],
-//     (err, results, fields) => {
-//       if (!err) {
-//         res.send(
-//           "The data for the selected quarterback has been successfully updated."
-//         );
-//       } else {
-//         console.log(err);
-//       }
-//     }
-//   );
-// });
-
-// Router.delete("/:id", (req, res) => {
-//   mysqlConnection.query(
-//     "DELETE FROM quarterback_rankings WHERE ID= ? ",
-//     [req.params.id],
-//     (err, results, fields) => {
-//       if (!err) {
-//         res.send("The selected quarterback has been successfully deleted.");
-//       } else {
-//         console.log(err);
-//       }
-//     }
-//   );
-// });
-
-// module.exports = Router;
-
-
-
 
 
 

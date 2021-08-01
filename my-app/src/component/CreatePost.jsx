@@ -17,6 +17,8 @@ class CreatePost extends React.Component {
       datedujour: dateDuJour(),
       userId: getUserId(),
       userName: "",
+      messageCreation: "",
+      buttonstop: false,
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleFileChange = this.handleFileChange.bind(this);
@@ -72,7 +74,16 @@ class CreatePost extends React.Component {
         'Authorization': window.sessionStorage.getItem('dataUser'),
       }
     })
-      .then(reponse => console.log(reponse))
+      .then((reponse) => {
+        console.log(reponse);
+        if( reponse.statusText === "OK") {
+          console.log("ok")
+          this.setState({
+            messageCreation: "Post créé !",
+            buttonstop: true
+          })
+        }
+      })
     
   }
 
@@ -93,8 +104,11 @@ class CreatePost extends React.Component {
               onChange={this.handleFileChange} />
             <img className="create_post_image" src={this.state.filepicture} alt="Votre post" />
             <br />
-            <button type='submit'>Poster !</button>
+            <button type='submit' disabled={this.state.buttonstop}>Poster !</button>
           </form>
+          <div className="legende_create_post">
+            {this.state.messageCreation}
+          </div>
         </div>
       </Layout>
     </div>);
