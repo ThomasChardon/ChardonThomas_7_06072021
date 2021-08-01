@@ -9,7 +9,7 @@ function Banner() {
                 <li >TO DO</li>
                 <li className='not-Done'>vérifier tous les formulaires</li>
                 <li className='not-Done'>mot de passe oublié</li>
-                <li className='Done'>creation user verif mail existant</li>
+                <li className='not-Done'>suppression de compte</li>
                 
             </ul>
         </div>

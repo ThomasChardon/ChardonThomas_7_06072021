@@ -90,8 +90,35 @@ async function passwordForgot(credentials) {
         setErrorMessageUser("Le mail que vous avez entré n'existe pas");
        } else {
          //user ok, envoyer mdp ?
+        //  function sendEmail() {
+          // Email.send({
+          //   Host: "smtp.gmail.com",
+          //   Username: process.env.USER_MAIL,
+          //   Password: process.env.USER_PASSWORD,
+          //   To: 'tom.chardon.dev@gmail.com',
+          //   From: process.env.USER_MAIL,
+          //   Subject: "test",
+          //   Body: "Well that was easy!!",
+          // })
+          //   .then(function (message) {
+          //     console.log("mail sent successfully");
+          //   });
+        // }
        }
      }
+
+    //  useEffect(() => {
+    //   const script = document.createElement('script');
+
+    //   script.src = "https://smtpjs.com/v3/smtp.js";
+    //   script.async = true;
+
+    //   document.body.appendChild(script);
+
+    //   return () => {
+    //     document.body.removeChild(script);
+    //   }
+    // }, []);
 
      function switchSignup () {
         setRegistration(false);
@@ -168,7 +195,7 @@ async function passwordForgot(credentials) {
           <button type="submit" >Recevoir</button>
         </div>
       </form>
-      <button className="button_cancel" type="button" onClick={switchPassOk}>Annuler</button>
+      <button className="button_cancel" type="button"  onClick={switchPassOk}>Annuler</button>
     </div>}
        </Layout>
      )

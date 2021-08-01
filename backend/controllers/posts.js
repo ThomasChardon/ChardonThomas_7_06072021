@@ -51,36 +51,14 @@ exports.GetAllPosts = (req, res, next) => {
 
 
 exports.CreatePost = (req, res, next) => {
-  let post = {titre: req.body.titre, user_creation: req.body.userCreation, date_creation: req.body.datedujour, commentaires:"", chemin_image:req.body.filename, user_id:req.body.userId};
+  let post = {
+    titre: req.body.titre, 
+    user_creation: req.body.userCreation, 
+    date_creation: req.body.datedujour, 
+    chemin_image: req.file ? req.file.filename : null,
+    user_id:req.body.userId
+  };
   
-  // console.log("Date du jour :");
-  // console.log(Date.now());
-  // console.log("req.body");
-  // console.log(req.body);
-  // console.log("req.file");
-  // console.log(req.file);
-  // console.log(req);
-  const decoupenom = req.body.filename.split('.');
-  const extension = decoupenom[1];
-  const nomfichier = decoupenom[0] + '_' + Date.now() + '.' + extension;
-
-  const filepath = `./images/`;
-  // console.log("Mon path : ");
-  // console.log(filepath + nomfichier);
-
-  //semble marcher mais le fichier non
-  // fs.writeFile(filepath + nomfichier, new Buffer.from(req.body.file, "base64"), err => {   
-  //   if (err) {return console.log(err);}
-  //   else { console.log("ecriture supposee reussie")}
-  //   })
-
-    // .then(() => res.status(201).json({ message: 'Objet enregistré !'}))
-    // .catch(error => {
-    //   console.log(error);
-    //   res.status(400).json({ error })
-    // } );
-
-
   connection.query(
     "INSERT INTO Posts SET ?", post,
     (err, results, fields) => {

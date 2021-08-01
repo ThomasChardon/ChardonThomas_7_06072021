@@ -98,21 +98,20 @@ exports.mdpOublie = (req, res, next) => {
     if (longueur > 0) {
       // user trouvé
       const nouveauMDP = "nouveauMDP"; // a modifier pour variable
-      bcrypt.hash(nouveauMDP, 10)
-        .then(hash => {
-          const motdepasse = hash
-          var post = { user_password: motdepasse };
-          var query = connection.query('UPDATE Users SET ?  WHERE user_name = ?', [post, results[0].user_mail], function (error, results, fields) {
-            if (error) throw error;
-            else {
-              console.log("Requete jouée : ");
-              console.log(query.sql); // INSERT INTO Users SET `user_name` = 'user', `user_mail` = 'mail', user_password = le mot de passe
-              // res.status(201).json({ message: 'Mot de passe envoyé !' })
-            }
-            // Neat!
-          });
-        });
-      // créer mot de passe, le hacher, modifier dans la bdd, l'envoyer
+      // bcrypt.hash(nouveauMDP, 10)
+      //   .then(hash => {
+      //     const motdepasse = hash
+      //     var post = { user_password: motdepasse };
+      //     var query = connection.query('UPDATE Users SET ?  WHERE user_name = ?', [post, results[0].user_mail], function (error, results, fields) {
+      //       if (error) throw error;
+      //       else {
+      //         console.log("Requete jouée : ");
+      //         console.log(query.sql); // INSERT INTO Users SET `user_name` = 'user', `user_mail` = 'mail', user_password = le mot de passe
+      //         res.status(201).json({ message: 'Mot de passe envoyé !' })
+      //       }
+      //       // Neat!
+      //     });
+      //   });
       console.log(results);
       // res.status(200).json()
     } else {
