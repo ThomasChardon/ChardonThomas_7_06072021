@@ -9,5 +9,6 @@ router.post('/login', userCtrl.login);
 router.post('/passwordForgot', userCtrl.mdpOublie);
 router.get('/Profile/:id', userCtrl.getProfile);
 router.put('/Profile', userCtrl.updateProfile);
+router.delete('/Profile/:id', userCtrl.deleteUser);
 
 module.exports = router;

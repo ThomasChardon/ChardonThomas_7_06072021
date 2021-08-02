@@ -1,10 +1,7 @@
 const fs = require('fs');
-// const Post = require('../models/Posts');
-
 
 
 // const express = require("express");
-const { now } = require("mongoose");
 const connection = require("../database");
 
 exports.GetOnePosts = (req, res, next) => {
@@ -51,7 +48,7 @@ exports.GetAllPosts = (req, res, next) => {
 
 
 exports.CreatePost = (req, res, next) => {
-  let post = {
+  const post = {
     titre: req.body.titre, 
     user_creation: req.body.userCreation, 
     date_creation: req.body.datedujour, 
@@ -63,7 +60,6 @@ exports.CreatePost = (req, res, next) => {
     "INSERT INTO Posts SET ?", post,
     (err, results, fields) => {
       if (!err) {
-        console.log(results);
         res.send(results);
       } else {
         console.log("Une erreur est survenue : " + err);

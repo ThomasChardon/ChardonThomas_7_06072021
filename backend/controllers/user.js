@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const connection = require("../database");
-const User = require('../models/Users');
 
 
 exports.verifToken = (req, res, next) => {
@@ -175,3 +174,25 @@ exports.updateProfile = (req, res, next) => {
     }
   })
 };
+
+exports.deleteUser = (req, res, next) => {
+  var sql = 'SELECT * FROM Users where id = ' + connection.escape(req.body.userId);
+  connection.query(sql, function (err, results) {
+    if (err) throw err;
+    let longueur = results.length
+    if (longueur > 0) {
+      // user trouvé
+
+      connection.query('DELETE FROM Users where id = ?', connection.escape(req.body.userId), function (error, results, fields) {
+        if (error) throw error;
+        else {
+          console.log("Compte supprimé !!");
+          res.status(200).json("Compte supprimé !!")
+        }
+      })
+    } else {
+      console.log("Requete aboutie sans succes !");
+      return res.status(401).json({ error: 'Utilisateur non trouvé !' });
+    }
+  })
+}

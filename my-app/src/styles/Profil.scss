@@ -1,13 +1,16 @@
 .Profil {
     width: 700px;
-    height: 900px;
+    height: 1200px;
     margin: auto;
     margin-top: 20px;
-    .Profil_Pseudo, .Profile_mail, .Profile_change_password {
+    .Profil_Pseudo, .Profile_mail, .Profile_change_password, .Profile_delete {
         font-size: 3em;
         margin-top: 20px;
     }
     .Profile_change_password {
+        margin-top: 100px;
+    }
+    .Profile_delete {
         margin-top: 100px;
     }
     input {
@@ -34,6 +37,6 @@
     }
 }
 
-.legende_modif_profil {
+.legende_modif_profil, .legende_delete_profil {
     font-size: 0.5em;
 }

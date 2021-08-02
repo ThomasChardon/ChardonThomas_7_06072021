@@ -16,6 +16,14 @@ async function fetchuser(credentials) {
       .then(data => data.json())
 }
 
+async function deleteuser(credentials) {
+    return fetch('http://localhost:3000/Profile/' + credentials, {
+        method: 'DELETE',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(credentials)
+    })
+    .then(data => data.json())
+}
 
 
 export default function Profil() {
@@ -64,6 +72,17 @@ export default function Profil() {
             setUserMail(newusermail);
        }
     }
+
+    const handleDeleteAccount = async e => {
+        e.preventDefault();
+        const resultat = await deleteuser({
+            userId,
+        });
+        if (resultat === "Compte supprimé !!" ) {
+            window.sessionStorage.clear();
+            window.location.href = '/Login';
+       }
+    }
     
     return (
         <Layout>
@@ -94,6 +113,12 @@ export default function Profil() {
                     Changer de mot de passe ? Attention, cela enverra un mail de réinitialisation de mot de passe à votre adresse mail.
                     </div>
                     <button className="Button_profil" >Envoyer</button>
+                </div>
+                <div className="Profile_delete">
+                    <div className="legende_delete_profil">
+                    Supprimer le compte : Attention cette opération est définitive !
+                    </div>
+                    <button className="Button_profil" onClick={handleDeleteAccount}>Supprimer</button>
                 </div>
             </div>
             
