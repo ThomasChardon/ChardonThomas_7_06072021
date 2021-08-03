@@ -32,10 +32,8 @@ export default function Profil() {
     const [usermail, setUserMail] = useState("");
     const [newusername, setNewUserName] = useState("");
     const [newusermail, setNewUserMail] = useState("");
-    // const [password, setPassword] = useState("");
 
-    // console.log(userid); //ok
-    //fetch infos user
+
     fetch(API + userId + DEFAULT_QUERY, { headers: { Authorization: window.sessionStorage.getItem('dataUser') }})
     .then(response => {
         if (response.ok) {
@@ -44,7 +42,6 @@ export default function Profil() {
             throw new Error('Something went wrong ...');
         }
     })
-    //   .then(data => data.json())
       .then((datas) => {
         setUserName(datas[0].user_name);
         setUserMail(datas[0].user_mail);

@@ -3,6 +3,7 @@ import Home from "./Home.jsx";
 import CreatePost from "./CreatePost.jsx";
 import Deconnexion from "./Deconnexion.jsx";
 import Profil from "./Profil.jsx";
+import ReinitMDP from "./ReinitMDP.jsx";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 
 
@@ -14,6 +15,7 @@ export const MonSwitch = () => {
         <Route path="/createPost" component={CreatePost} exact />
         <Route path="/Profil" component={Profil} exact />
         <Route path="/Deconnexion" component={Deconnexion} exact />
+        <Route path="/ReinitMDP" component={ReinitMDP} exact />
         <Redirect to="/Posts" />
       </Switch>
     </BrowserRouter>

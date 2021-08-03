@@ -1,6 +1,49 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const connection = require("../database");
+const nodemailer = require("nodemailer");
+
+
+
+// async..await is not allowed in global scope, must use a wrapper
+async function sendMail(destinataire) {
+  // Generate test SMTP service account from ethereal.email
+  // Only needed if you don't have a real mail account for testing
+  // let testAccount = await nodemailer.createTestAccount();
+
+  // create reusable transporter object using the default SMTP transport
+  let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    host: 'smtp.gmail.com',
+    // host: "smtp.ethereal.email",
+    // port: 587,
+    // secure: false, // true for 465, false for other ports
+    auth: {
+      user: process.env.MAIL_USER, // generated ethereal user
+      pass: process.env.MAIL_PASSWORD, // generated ethereal password
+    },
+  });
+
+  // send mail with defined transport object
+  let info = await transporter.sendMail({
+    from: '"Groupomania admin" ' & process.env.MAIL_USER, // sender address
+    to: destinataire, // list of receivers
+    subject: "Changement de mot de passe", // Subject line
+    text: "Bonjour, vous avez demandé à changer de mot de passe. Merci de suivre le lien suivant pour en créer un nouveau : <Lien>", // plain text body
+    html: "<b>Bonjour, vous avez demandé à changer de mot de passe.<br/><br/> Merci de suivre le lien suivant pour en créer un nouveau : \
+    <a href=\"http://localhost:3001/ReinitMDP\">Réinitialisation</a></b>", // html body
+  });
+
+  console.log("Message sent: %s", info.messageId);
+  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+
+  return(info);
+  // res.status(201).json({ message: 'Mail envoyé' });
+}
+
+
+
+
 
 
 exports.verifToken = (req, res, next) => {
@@ -96,6 +139,23 @@ exports.mdpOublie = (req, res, next) => {
     let longueur = results.length
     if (longueur > 0) {
       // user trouvé
+
+      //marche
+
+      // sendMail("tom.chardon.dev@gmail.com").catch(console.error)
+      // .then((message) => {
+      //   if (message.accepted)  {
+      //     return res.status(201).json({ message: 'Mail correctement envoyé' })
+      //   }
+      // });
+
+      return res.status(201).json({ message: 'Mail correctement envoyé'});
+
+      // console.log("fonction sendMail lancée");
+
+
+
+
       const nouveauMDP = "nouveauMDP"; // a modifier pour variable
       // bcrypt.hash(nouveauMDP, 10)
       //   .then(hash => {
@@ -111,7 +171,7 @@ exports.mdpOublie = (req, res, next) => {
       //       // Neat!
       //     });
       //   });
-      console.log(results);
+      // console.log(results);
       // res.status(200).json()
     } else {
       console.log("Requete aboutie sans succes !");
