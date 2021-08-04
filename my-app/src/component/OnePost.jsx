@@ -49,7 +49,6 @@ class OnePost extends Component {
 
   PosternouveauCom(event) {
     event.preventDefault();
-    console.log(this.state.nouveaucom) //ok
 
     axios.post("http://localhost:3000/Posts/createCom/" + this.props.postid,
     {comm : this.state.nouveaucom, user : this.state.userId, datedujour : this.state.datedujour}, {
@@ -60,7 +59,6 @@ class OnePost extends Component {
       }
     })
       .then((reponse) => {
-        console.log(reponse);
         if( reponse.statusText === "OK") {
           console.log("ok")
           this.setState({

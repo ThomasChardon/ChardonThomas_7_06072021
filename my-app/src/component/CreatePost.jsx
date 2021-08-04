@@ -104,7 +104,9 @@ class CreatePost extends React.Component {
               onChange={this.handleFileChange} />
             <img className="create_post_image" src={this.state.filepicture} alt="Votre post" />
             <br />
-            <button type='submit' disabled={this.state.buttonstop}>Poster !</button>
+            <div className="div_button_create_post_submit">
+            <button className="button_create_post_submit" type='submit' disabled={this.state.buttonstop}>Poster !</button>
+            </div>
           </form>
           <div className="legende_create_post">
             {this.state.messageCreation}
