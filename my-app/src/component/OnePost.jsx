@@ -1,6 +1,7 @@
-import {sqlToJsDate} from './Functions.jsx';
+import {sqlToJsDate, getUserId, dateDuJour } from './Functions.jsx';
 import '../styles/OnePost.scss'
 import React, { Component } from 'react';
+import axios from 'axios';
  
 // const API = 'http://localhost:3000/Posts?query=';
 // const DEFAULT_QUERY = 'redux';
@@ -16,6 +17,8 @@ class OnePost extends Component {
     this.PosternouveauCom = this.PosternouveauCom.bind(this);
 
     this.state = {
+      userId: getUserId(),
+      datedujour: dateDuJour(),
       posts: [],
       isLoading: false,
       error: null,
@@ -47,6 +50,24 @@ class OnePost extends Component {
   PosternouveauCom(event) {
     event.preventDefault();
     console.log(this.state.nouveaucom) //ok
+
+    axios.post("http://localhost:3000/Posts/createCom/" + this.props.postid,
+    {comm : this.state.nouveaucom, user : this.state.userId, datedujour : this.state.datedujour}, {
+      headers: {
+        // 'content-type': 'text/json',
+        'Content-Type': 'application/json',
+        'Authorization': window.sessionStorage.getItem('dataUser'),
+      }
+    })
+      .then((reponse) => {
+        console.log(reponse);
+        if( reponse.statusText === "OK") {
+          console.log("ok")
+          this.setState({
+            nouveaucom: "",
+          })
+        }
+      })
     //envoyer com en BDD
     //refresh la page après
   }

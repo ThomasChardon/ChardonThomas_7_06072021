@@ -1,6 +1,6 @@
 
 
-export function sqlToJsDate(sqlDate){
+export function sqlToJsDate(sqlDate) {
     //sqlDate in SQL DATETIME format ("2009-05-14T04:42:00.000Z")
     var sqlDateArr1 = sqlDate.split('-');
     //format of sqlDateArr1[] = ['yyyy','mm','ddThh:mm:msZ']
@@ -10,35 +10,48 @@ export function sqlToJsDate(sqlDate){
     // var sqlDateArr2 = sqlDateArr1[2].split("T");
     //format of sqlDateArr2[] = ['dd', 'hh:mm:ss.ms']
 
-	//Pour sélectionner heures et minutes si besoin :
+    //Pour sélectionner heures et minutes si besoin :
     // var sqlDateArr3 = sqlDateArr2[1].split(":");
     //format of sqlDateArr3[] = ['hh','mm','ss.ms']
     // var sHour = sqlDateArr3[0];
     // var sMinute = sqlDateArr3[1];
 
-	var date_temporaire = new Date(sYear,sMonth,sDay);
-	var options = {weekday: "long", year: "numeric", month: "long", day: "2-digit"};
-	let date_post = (date_temporaire.toLocaleDateString("fr-FR", options));
+    var date_temporaire = new Date(sYear, sMonth, sDay);
+    var options = { weekday: "long", year: "numeric", month: "long", day: "2-digit" };
+    let date_post = (date_temporaire.toLocaleDateString("fr-FR", options));
 
     return date_post;
 };
 
-export function dateDuJour(){
+export function dateDuJour() {
     var today = new Date();
     var dd = today.getDate();
 
-    var mm = today.getMonth()+1; 
+    var mm = today.getMonth() + 1;
     var yyyy = today.getFullYear();
-    if(dd<10) 
-        {
-            dd='0'+dd;
-        } 
-//2009-05-14 06:42:00
-    if(mm<10) 
-        {
-        mm='0'+mm;
-        } 
-    today = yyyy+'-'+mm+'-'+dd;
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+    //2009-05-14 06:42:00
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+
+    var hh = today.getHours();
+    var min = today.getMinutes();
+    var sec = today.getSeconds();
+    if (hh < 10) {
+        hh = '0' + hh;
+    }
+
+    if (min < 10) {
+        min = '0' + min;
+    }
+    if (sec < 10) {
+        sec = '0' + sec;
+    }
+
+    today = yyyy + '-' + mm + '-' + dd + ' ' + hh + ':' + min + ':' + sec;
     return today;
 };
 

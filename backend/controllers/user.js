@@ -15,8 +15,6 @@ async function sendMail(destinataire) {
   let transporter = nodemailer.createTransport({
     service: 'gmail',
     host: 'smtp.gmail.com',
-    // host: "smtp.ethereal.email",
-    // port: 587,
     // secure: false, // true for 465, false for other ports
     auth: {
       user: process.env.MAIL_USER, // generated ethereal user
@@ -142,14 +140,15 @@ exports.mdpOublie = (req, res, next) => {
 
       //marche
 
-      // sendMail("tom.chardon.dev@gmail.com").catch(console.error)
-      // .then((message) => {
-      //   if (message.accepted)  {
-      //     return res.status(201).json({ message: 'Mail correctement envoyé' })
-      //   }
-      // });
+      // sendMail(req.body.usermail).catch(console.error)
+      sendMail("tom.chardon.dev@gmail.com").catch(console.error)
+      .then((message) => {
+        if (message.accepted)  {
+          return res.status(201).json({ message: 'Mail correctement envoyé' })
+        }
+      });
 
-      return res.status(201).json({ message: 'Mail correctement envoyé'});
+      // return res.status(201).json({ message: 'Mail correctement envoyé'});
 
       // console.log("fonction sendMail lancée");
 
