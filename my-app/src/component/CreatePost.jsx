@@ -13,16 +13,19 @@ class CreatePost extends React.Component {
       image: {},
       filepicture: "",
       filename: "",
-      titre: "",
+      titre: "Titre",
       datedujour: dateDuJour(),
       userId: getUserId(),
       userName: "",
       messageCreation: "",
-      buttonstop: false,
+      buttonstop: true,
+      booldisplaypic: false,
     }
+    this.hiddenFileInput = React.createRef();
     this.handleChange = this.handleChange.bind(this);
     this.handleFileChange = this.handleFileChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange(event) {
@@ -34,7 +37,9 @@ class CreatePost extends React.Component {
       ...this.state,
       filepicture: URL.createObjectURL(event.target.files[0]),
       image: event.target.files[0],
-      filename: event.target.files[0].name
+      filename: event.target.files[0].name,
+      booldisplaypic : true,
+      buttonstop : false
     })
   }
 
@@ -87,6 +92,10 @@ class CreatePost extends React.Component {
     
   }
 
+  handleClick(event) {
+    event.preventDefault();
+    this.hiddenFileInput.current.click();
+  };
 
   render() {
     return (<div>
@@ -98,11 +107,18 @@ class CreatePost extends React.Component {
             <input className="create_post_titre" type='text' name='title' defaultValue={this.state.titre} onChange={this.handleChange} />
             {/* <br/> */}
             <p>Choisissez votre image/gif :</p>
-            <input className="button_create_post_image"
+            <input className="hide_create_post_image"
               type="file"
               name="file"
+              ref={this.hiddenFileInput}
               onChange={this.handleFileChange} />
-            <img className="create_post_image" src={this.state.filepicture} alt="Votre post" />
+              <div className="div_button_create_post_image">
+              <button className="button_create_post_image" onClick={this.handleClick}>
+              Upload a file
+              </button>
+              </div>
+            <img className={`create_post_image${this.state.booldisplaypic ? "" : "_disabled"}`} src={this.state.filepicture} alt="Votre post" />
+            {/* <img className="create_post_image" src={this.state.filepicture} alt="Votre post" /> */}
             <br />
             <div className="div_button_create_post_submit">
             <button className="button_create_post_submit" type='submit' disabled={this.state.buttonstop}>Poster !</button>
