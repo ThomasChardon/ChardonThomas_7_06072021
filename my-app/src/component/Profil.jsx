@@ -109,7 +109,7 @@ export default function Profil() {
                     <div className="legende_modif_profil">
                     Changer de mot de passe ? Attention, cela enverra un mail de réinitialisation de mot de passe à votre adresse mail.
                     </div>
-                    <button className="Button_profil" >Envoyer</button>
+                    <button className="Button_profil" >Envoyer</button> 
                 </div>
                 <div className="Profile_delete">
                     <div className="legende_delete_profil">

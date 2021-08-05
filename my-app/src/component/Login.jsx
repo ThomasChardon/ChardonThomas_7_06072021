@@ -169,10 +169,10 @@ async function passwordForgot(credentials) {
           {errorMessageUser && <div className="error"> {errorMessageUser} </div>}
         </label>
         <div>
-          <button type="submit" >Recevoir</button>
+          <button type="submit"  disabled={buttonStop} >Recevoir</button>
         </div>
       </form>
-      <button className="button_cancel" type="button" disabled={buttonStop} onClick={switchPassOk}>Annuler</button>
+      <button className="button_cancel" type="button" onClick={switchPassOk}>Annuler</button>
     </div>}
        </Layout>
      )

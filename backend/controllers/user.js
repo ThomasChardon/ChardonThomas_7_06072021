@@ -35,8 +35,7 @@ async function sendMail(destinataire) {
   console.log("Message sent: %s", info.messageId);
   // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 
-  return(info);
-  // res.status(201).json({ message: 'Mail envoyé' });
+  return (info);
 }
 
 
@@ -45,7 +44,6 @@ async function sendMail(destinataire) {
 
 
 exports.verifToken = (req, res, next) => {
-  // console.log(req.body);
   try {
     const token = req.body.token;
     const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
@@ -74,7 +72,6 @@ exports.signup = (req, res, next) => {
     } else {
       //mail non présent, creation du user et insert
       console.log("Requete aboutie avec succes !");
-      // return res.status(401).json({ error: 'Utilisateur non trouvé !' });
       bcrypt.hash(req.body.password, 10)
         .then(hash => {
           const motdepasse = hash
@@ -138,43 +135,46 @@ exports.mdpOublie = (req, res, next) => {
     if (longueur > 0) {
       // user trouvé
 
-      //marche
-
+      //changer la fonction ici pour envoyer un mail au bon utilisateur
       // sendMail(req.body.usermail).catch(console.error)
       sendMail("tom.chardon.dev@gmail.com").catch(console.error)
-      .then((message) => {
-        if (message.accepted)  {
-          return res.status(201).json({ message: 'Mail correctement envoyé' })
-        }
-      });
-
-      // return res.status(201).json({ message: 'Mail correctement envoyé'});
-
-      // console.log("fonction sendMail lancée");
-
-
-
-
-      const nouveauMDP = "nouveauMDP"; // a modifier pour variable
-      // bcrypt.hash(nouveauMDP, 10)
-      //   .then(hash => {
-      //     const motdepasse = hash
-      //     var post = { user_password: motdepasse };
-      //     var query = connection.query('UPDATE Users SET ?  WHERE user_name = ?', [post, results[0].user_mail], function (error, results, fields) {
-      //       if (error) throw error;
-      //       else {
-      //         console.log("Requete jouée : ");
-      //         console.log(query.sql); // INSERT INTO Users SET `user_name` = 'user', `user_mail` = 'mail', user_password = le mot de passe
-      //         res.status(201).json({ message: 'Mot de passe envoyé !' })
-      //       }
-      //       // Neat!
-      //     });
-      //   });
-      // console.log(results);
-      // res.status(200).json()
+        .then((message) => {
+          if (message.accepted) {
+            return res.status(201).json({ message: 'Mail correctement envoyé' })
+          }
+        });
     } else {
       console.log("Requete aboutie sans succes !");
       return res.status(401).json({ error: 'Utilisateur non trouvé !' });
+    }
+  })
+};
+
+
+exports.changeMDP = (req, res, next) => {
+  console.log(req.body);
+  var sql = 'SELECT * FROM Users where id = ' + connection.escape(req.body.userid);
+  connection.query(sql, function (err, results) {
+    if (err) throw err;
+    let longueur = results.length
+    if (longueur > 0) {
+      //user trouvé, changer mdp
+      const nouveauMDP = req.body.password; // a modifier pour variable
+      bcrypt.hash(nouveauMDP, 10)
+        .then(hash => {
+          const motdepasse = hash
+          var post = { user_password: motdepasse };
+          var query = connection.query('UPDATE Users SET ? WHERE id = ?', [post, connection.escape(req.body.userid)], function (error, results, fields) {
+            if (error) throw error;
+            else {
+              console.log("Requete jouée : "); 
+              console.log(query.sql); // INSERT INTO Users SET `user_name` = 'user', `user_mail` = 'mail', user_password = le mot de passe
+              res.status(201).json({ message: 'Mot de passe changé !' })
+            }
+          });
+        });
+      // console.log(results);
+      // res.status(200).json()
     }
   })
 
