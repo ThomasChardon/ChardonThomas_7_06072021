@@ -24,6 +24,7 @@ class OnePost extends Component {
       error: null,
       commentaires: [],
       nouveaucom: "",
+      userName: ""
     };
   }
 
@@ -39,7 +40,7 @@ class OnePost extends Component {
         }
     })
       .then(data => 
-		  this.setState({ posts: data.post, commentaires: data.comment, isLoading: false }))
+		  {this.setState({ posts: data.post, commentaires: data.comment, isLoading: false, userName: data.user_name })})
       .catch(error => this.setState({ error, isLoading: false }));
   }
 
@@ -51,7 +52,7 @@ class OnePost extends Component {
     event.preventDefault();
 
     axios.post("http://localhost:3000/Posts/createCom/" + this.props.postid,
-    {comm : this.state.nouveaucom, user : this.state.userId, datedujour : this.state.datedujour}, {
+    {comm : this.state.nouveaucom, userid : this.state.userId, datedujour : this.state.datedujour}, {
       headers: {
         // 'content-type': 'text/json',
         'Content-Type': 'application/json',
@@ -60,9 +61,21 @@ class OnePost extends Component {
     })
       .then((reponse) => {
         if( reponse.statusText === "OK") {
-          console.log("ok")
+          const tempName = reponse.data.split("OK---");
+          
+          const newcom = {
+            id: tempName[0],
+            id_post: this.props.postid,
+            user_name: tempName[1] ,
+            comment: this.state.nouveaucom,
+            date_creation: this.state.datedujour,
+        };
           this.setState({
-            nouveaucom: "",
+            commentaires: [...this.state.commentaires, newcom],
+
+          })
+          this.setState({
+            nouveaucom: ""
           })
         }
       })
@@ -72,6 +85,7 @@ class OnePost extends Component {
  
   render() {
     const { posts, commentaires, isLoading, error } = this.state; 
+
     if (error) {
       return <p>{error.message}</p>;
     }

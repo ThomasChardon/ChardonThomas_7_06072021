@@ -29,7 +29,7 @@ async function sendMail(destinataire) {
     subject: "Changement de mot de passe", // Subject line
     text: "Bonjour, vous avez demandé à changer de mot de passe. Merci de suivre le lien suivant pour en créer un nouveau : <Lien>", // plain text body
     html: "<b>Bonjour, vous avez demandé à changer de mot de passe.<br/><br/> Merci de suivre le lien suivant pour en créer un nouveau : \
-    <a href=\"http://localhost:3001/ReinitMDP\">Réinitialisation</a></b>", // html body
+    <a href=\"http://localhost:3001/ReinitMDP/:id\">Réinitialisation</a></b>", // html body
   });
 
   console.log("Message sent: %s", info.messageId);

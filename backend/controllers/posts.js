@@ -65,7 +65,7 @@ exports.CreateCom = (req, res, next) => {
   connection.query(sql, function (err, results) {
     if (!err) {
       //id trouvé, recherche d'user
-      const sqluser = 'SELECT * FROM Users where id = ' + connection.escape(req.body.user);
+      const sqluser = 'SELECT * FROM Users where id = ' + connection.escape(req.body.userid);
       connection.query(sqluser, function (errdeux, resultsdeux) {
         if (!errdeux) {
           //id trouvé, extraction infos
@@ -80,12 +80,11 @@ exports.CreateCom = (req, res, next) => {
             comment: req.body.comm,
             date_creation: req.body.datedujour
           };
-          console.log(newcom);
           connection.query(
             "INSERT INTO Commentaires SET ?", newcom,
-            (err, results, fields) => {
+            (err, resultss, fields) => {
               if (!err) {
-                res.send("OK")
+                res.send(resultss.insertId + "OK---" + resultsdeux[0].user_name)
               } else {
                 console.log("Une erreur est survenue : " + err);
               }
