@@ -5,6 +5,11 @@
     margin-top: 50px;
     margin-bottom: 50px;
     padding-top: 250px;
+    @media screen and (min-width: 320px) and (max-width: 1000px)  {
+        width: 300px;
+        font-size: 2em;
+        padding-top: 150px;
+    }
 }
 
 .Buttons_ensemble {
@@ -25,6 +30,10 @@
         cursor: pointer;
         &:hover {
             opacity: 1
+        }
+        @media screen and (min-width: 320px) and (max-width: 1000px)  {
+            width: 100px;
+            height: 60px;
         }
     }
     .button_non {

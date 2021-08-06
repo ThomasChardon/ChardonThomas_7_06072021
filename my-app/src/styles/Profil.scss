@@ -7,6 +7,9 @@
     .Profil_Pseudo, .Profile_mail, .Profile_change_password, .Profile_delete {
         font-size: 3em;
         margin-top: 20px;
+        @media screen and (min-width: 320px) and (max-width: 1000px)  {
+            font-size: 2em;
+        }
     }
     .Profile_change_password {
         margin-top: 100px;
@@ -17,6 +20,9 @@
     input {
         font-size: 1em;
         width: 700px;
+        @media screen and (min-width: 320px) and (max-width: 1000px)  {
+            width: 280px;
+        }
     }
     .Button_profil {
         display: flex;
@@ -35,6 +41,10 @@
         &:hover {
             opacity: 1
         }
+    }
+    @media screen and (min-width: 320px) and (max-width: 1000px)  {
+        width: 300px;
+        padding-top: 150px;
     }
 }
 
