@@ -10,6 +10,10 @@
         height: 150px;
         width: 750px;
         margin:auto;
+        @media screen and (min-width: 320px) and (max-width: 1000px)  {
+            height: 80px;
+            width: 280px;
+        }
     }
     .groupo-title {
         margin:auto;
