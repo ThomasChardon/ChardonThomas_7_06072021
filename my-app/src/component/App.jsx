@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import MonSwitch from "./MonSwitch";
 import '../styles/App.scss';
+import ReinitMDP from "./ReinitMDP.jsx";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Login from "./Login.jsx";
 
@@ -28,13 +29,28 @@ export default function App() {
 			return <MonSwitch />
 		}
 		else {
-			return <Login setToken={setToken} />
+			const maurl = new URL(window.location.href); // url vaut l'url de la page en cours
+			// console.log(monurl.href);
+
+			if (maurl.href.includes("mdpid")) {
+				return <ReinitMDP />
+			} else {
+				return <Login setToken={setToken} />
+			}
 		}
 	}
 
 	if (!token) {
 		sessionStorage.clear();
-		return <Login setToken={setToken} />
+
+		const monurl = new URL(window.location.href); // url vaut l'url de la page en cours
+		// console.log(monurl.href);
+
+		if (monurl.href.includes("mdpid")) {
+			return <ReinitMDP />
+		} else {
+			return <Login setToken={setToken} />
+		}
 	} else if (connected) {
 		console.log("connection réussie !");
 		const letoken = JSON.stringify(token);

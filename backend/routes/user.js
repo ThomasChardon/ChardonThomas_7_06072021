@@ -7,7 +7,7 @@ router.post('/signup', userCtrl.signup);
 router.post('/', userCtrl.verifToken);
 router.post('/login', userCtrl.login);
 router.post('/passwordForgot', userCtrl.mdpOublie);
-router.put('/ReinitMDP', userCtrl.changeMDP);
+router.put('/ReinitMDP/:mdpid', userCtrl.changeMDP);
 router.get('/Profile/:id', userCtrl.getProfile);
 router.put('/Profile', userCtrl.updateProfile);
 router.delete('/Profile/:id', userCtrl.deleteUser);

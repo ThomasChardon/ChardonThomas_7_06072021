@@ -1,4 +1,9 @@
 
+export function $_GET(argument) { // export function : permet de l'envoyer dans d'autres fichiers js
+    const url = new URL (window.location.href); // url vaut l'url de la page en cours
+    const tempurl = url.href.split(argument);
+    return tempurl[1]; // cherche l'argument dans les parametres de l'url. Renvoie null ou la valeur de cet argument
+  }
 
 export function sqlToJsDate(sqlDate) {
     //sqlDate in SQL DATETIME format ("2009-05-14T04:42:00.000Z")
@@ -59,3 +64,11 @@ export function getUserId() {
     let dataUser = JSON.parse(sessionStorage.getItem('dataUser'));
     return dataUser.userId;
 }
+
+// export function sleep(milliseconds) {
+//     const date = Date.now();
+//     let currentDate = null;
+//     do {
+//       currentDate = Date.now();
+//     } while (currentDate - date < milliseconds);
+//   }

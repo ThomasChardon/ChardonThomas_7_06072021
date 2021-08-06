@@ -25,6 +25,14 @@ async function deleteuser(credentials) {
     .then(data => data.json())
 }
 
+async function passwordForgot(credentials) {
+    return fetch('http://localhost:3000/passwordForgot', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(credentials)
+    })
+      .then(data => data.json())
+}
 
 export default function Profil() {
     const userId = getUserId();
@@ -32,6 +40,7 @@ export default function Profil() {
     const [usermail, setUserMail] = useState("");
     const [newusername, setNewUserName] = useState("");
     const [newusermail, setNewUserMail] = useState("");
+    const [buttonStop, setButtonStop] = useState(false);
 
 
     fetch(API + userId + DEFAULT_QUERY, { headers: { Authorization: window.sessionStorage.getItem('dataUser') }})
@@ -68,6 +77,23 @@ export default function Profil() {
         if (resultat === "Modifications effectuée !" ) {
             setUserMail(newusermail);
        }
+    }
+
+    const handleReinitPWD = async e => {
+        e.preventDefault();
+        e.preventDefault();
+        const token = await passwordForgot({
+          usermail
+        });
+        console.log("le token : ");
+        console.log(token);
+       if (token.error === 'Utilisateur non trouvé !') {
+        //  setErrorMessageUser("Le mail que vous avez entré n'existe pas");
+        } else {
+        //  setErrorMessageUser("Mail envoyé à l'adresse indiquée");
+         setButtonStop(true);
+        }
+      
     }
 
     const handleDeleteAccount = async e => {
@@ -109,7 +135,7 @@ export default function Profil() {
                     <div className="legende_modif_profil">
                     Changer de mot de passe ? Attention, cela enverra un mail de réinitialisation de mot de passe à votre adresse mail.
                     </div>
-                    <button className="Button_profil" >Envoyer</button> 
+                    <button className="Button_profil"  disabled={buttonStop} onClick={handleReinitPWD}>Envoyer</button> 
                 </div>
                 <div className="Profile_delete">
                     <div className="legende_delete_profil">

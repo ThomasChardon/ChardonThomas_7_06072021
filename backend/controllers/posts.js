@@ -69,11 +69,6 @@ exports.CreateCom = (req, res, next) => {
       connection.query(sqluser, function (errdeux, resultsdeux) {
         if (!errdeux) {
           //id trouvé, extraction infos
-          // console.log(resultsdeux)
-          // console.log(resultsdeux[0].user_name)
-
-          // console.log(req.body.comm); // le commentaire
-          // console.log(req.body.user); // le l'id user
           const newcom = {
             id_post: req.params.id,
             user_name: resultsdeux[0].user_name,

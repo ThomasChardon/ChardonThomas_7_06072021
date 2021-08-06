@@ -6,7 +6,7 @@ const nodemailer = require("nodemailer");
 
 
 // async..await is not allowed in global scope, must use a wrapper
-async function sendMail(destinataire) {
+async function sendMail(destinataire, iduser) {
   // Generate test SMTP service account from ethereal.email
   // Only needed if you don't have a real mail account for testing
   // let testAccount = await nodemailer.createTestAccount();
@@ -29,7 +29,7 @@ async function sendMail(destinataire) {
     subject: "Changement de mot de passe", // Subject line
     text: "Bonjour, vous avez demandé à changer de mot de passe. Merci de suivre le lien suivant pour en créer un nouveau : <Lien>", // plain text body
     html: "<b>Bonjour, vous avez demandé à changer de mot de passe.<br/><br/> Merci de suivre le lien suivant pour en créer un nouveau : \
-    <a href=\"http://localhost:3001/ReinitMDP/:id\">Réinitialisation</a></b>", // html body
+    <a href=\"http://localhost:3001/ReinitMDP/mdpid:" + iduser + "\">Réinitialisation</a></b>", // html body
   });
 
   console.log("Message sent: %s", info.messageId);
@@ -37,9 +37,6 @@ async function sendMail(destinataire) {
 
   return (info);
 }
-
-
-
 
 
 
@@ -137,7 +134,7 @@ exports.mdpOublie = (req, res, next) => {
 
       //changer la fonction ici pour envoyer un mail au bon utilisateur
       // sendMail(req.body.usermail).catch(console.error)
-      sendMail("tom.chardon.dev@gmail.com").catch(console.error)
+      sendMail("tom.chardon.dev@gmail.com", results[0].id).catch(console.error)
         .then((message) => {
           if (message.accepted) {
             return res.status(201).json({ message: 'Mail correctement envoyé' })
@@ -152,22 +149,25 @@ exports.mdpOublie = (req, res, next) => {
 
 
 exports.changeMDP = (req, res, next) => {
-  console.log(req.body);
-  var sql = 'SELECT * FROM Users where id = ' + connection.escape(req.body.userid);
+
+  const monid = req.params.mdpid.split(":mdpid");
+
+  var sql = 'SELECT * FROM Users where id = ' + monid[1];
+
   connection.query(sql, function (err, results) {
     if (err) throw err;
     let longueur = results.length
     if (longueur > 0) {
       //user trouvé, changer mdp
-      const nouveauMDP = req.body.password; // a modifier pour variable
+      const nouveauMDP = req.body.password;
       bcrypt.hash(nouveauMDP, 10)
         .then(hash => {
           const motdepasse = hash
           var post = { user_password: motdepasse };
-          var query = connection.query('UPDATE Users SET ? WHERE id = ?', [post, connection.escape(req.body.userid)], function (error, results, fields) {
+          var query = connection.query('UPDATE Users SET ? WHERE id = ?', [post, monid[1]], function (error, results, fields) {
             if (error) throw error;
             else {
-              console.log("Requete jouée : "); 
+              console.log("Requete jouée : ");
               console.log(query.sql); // INSERT INTO Users SET `user_name` = 'user', `user_mail` = 'mail', user_password = le mot de passe
               res.status(201).json({ message: 'Mot de passe changé !' })
             }
