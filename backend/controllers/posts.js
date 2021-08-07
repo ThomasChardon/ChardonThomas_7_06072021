@@ -30,7 +30,6 @@ exports.GetAllPosts = (req, res, next) => {
     (err, results, fields) => {
       if (!err) {
         res.send(results);
-        // console.log(results);
       } else {
         console.log("Une erreur est survenue : " + err);
       }

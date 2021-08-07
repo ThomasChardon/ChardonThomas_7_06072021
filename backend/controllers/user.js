@@ -7,33 +7,26 @@ const nodemailer = require("nodemailer");
 
 // async..await is not allowed in global scope, must use a wrapper
 async function sendMail(destinataire, iduser) {
-  // Generate test SMTP service account from ethereal.email
-  // Only needed if you don't have a real mail account for testing
-  // let testAccount = await nodemailer.createTestAccount();
 
-  // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
     service: 'gmail',
     host: 'smtp.gmail.com',
-    // secure: false, // true for 465, false for other ports
     auth: {
-      user: process.env.MAIL_USER, // generated ethereal user
-      pass: process.env.MAIL_PASSWORD, // generated ethereal password
+      user: process.env.MAIL_USER,
+      pass: process.env.MAIL_PASSWORD,
     },
   });
 
-  // send mail with defined transport object
   let info = await transporter.sendMail({
-    from: '"Groupomania admin" ' & process.env.MAIL_USER, // sender address
-    to: destinataire, // list of receivers
-    subject: "Changement de mot de passe", // Subject line
-    text: "Bonjour, vous avez demandé à changer de mot de passe. Merci de suivre le lien suivant pour en créer un nouveau : <Lien>", // plain text body
+    from: '"Groupomania admin" ' & process.env.MAIL_USER,
+    to: destinataire,
+    subject: "Changement de mot de passe",
+    text: "Bonjour, vous avez demandé à changer de mot de passe. Merci de suivre le lien suivant pour en créer un nouveau : <Lien>",
     html: "<b>Bonjour, vous avez demandé à changer de mot de passe.<br/><br/> Merci de suivre le lien suivant pour en créer un nouveau : \
-    <a href=\"http://localhost:3001/ReinitMDP/mdpid:" + iduser + "\">Réinitialisation</a></b>", // html body
+    <a href=\"http://localhost:3001/ReinitMDP/mdpid:" + iduser + "\">Réinitialisation</a></b>",
   });
 
   console.log("Message sent: %s", info.messageId);
-  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 
   return (info);
 }
@@ -80,7 +73,6 @@ exports.signup = (req, res, next) => {
               console.log(query.sql); // INSERT INTO Users SET `user_name` = 'user', `user_mail` = 'mail', user_password = le mot de passe
               res.status(201).json({ message: 'Utilisateur créé !' })
             }
-            // Neat!
           });
         });
     }
@@ -158,7 +150,7 @@ exports.changeMDP = (req, res, next) => {
     if (err) throw err;
     let longueur = results.length
     if (longueur > 0) {
-      //user trouvé, changer mdp
+      //user trouvé
       const nouveauMDP = req.body.password;
       bcrypt.hash(nouveauMDP, 10)
         .then(hash => {
@@ -173,8 +165,6 @@ exports.changeMDP = (req, res, next) => {
             }
           });
         });
-      // console.log(results);
-      // res.status(200).json()
     }
   })
 
@@ -202,7 +192,6 @@ exports.updateProfile = (req, res, next) => {
     let longueur = results.length
     if (longueur > 0) {
       // user trouvé
-      // console.log(results);
       if (req.body.newusername) { //si on modifie le nom d'utilisateur
         var donnees = { user_name: req.body.newusername };
       }
@@ -212,7 +201,6 @@ exports.updateProfile = (req, res, next) => {
           if (er) throw er;
           let longueur = results.length
           if (longueur > 0) {
-            //user trouvé, pas bon
             console.log("Utilisateur existant, requete non jouee");
             return res.status(401).json({ error: 'Utilisateur existant, requete non jouee' });
           }

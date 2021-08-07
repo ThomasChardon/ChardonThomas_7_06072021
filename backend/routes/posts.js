@@ -11,7 +11,5 @@ router.get('/Posts', auth, stuffCtrl.GetAllPosts);
 router.get('/Posts/:id', auth, stuffCtrl.GetOnePosts);
 router.post('/createPost', auth, multer, stuffCtrl.CreatePost);
 router.post('/Posts/createCom/:id', auth, stuffCtrl.CreateCom);
-// router.put('/:id', auth, multer, stuffCtrl.modifyThing);
-// router.delete('/:id', auth, stuffCtrl.deleteThing);
 
 module.exports = router;
