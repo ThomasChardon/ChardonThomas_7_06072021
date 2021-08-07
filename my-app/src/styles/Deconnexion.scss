@@ -5,7 +5,7 @@
     margin-top: 50px;
     margin-bottom: 50px;
     padding-top: 250px;
-    @media screen and (min-width: 320px) and (max-width: 1000px)  {
+    @media screen and (min-width: 320px) and (max-width: 1000px) {
         width: 300px;
         font-size: 2em;
         padding-top: 150px;
@@ -17,7 +17,6 @@
     justify-content: space-evenly;
     .Button_deco {
         border-radius: 12px;
-        // color: white;
         border: none;
         width: 150px;
         height: 100px;
@@ -29,9 +28,9 @@
         text-decoration: none;
         cursor: pointer;
         &:hover {
-            opacity: 1
+            opacity: 1;
         }
-        @media screen and (min-width: 320px) and (max-width: 1000px)  {
+        @media screen and (min-width: 320px) and (max-width: 1000px) {
             width: 100px;
             height: 60px;
         }
@@ -43,20 +42,3 @@
         background-color: #f03f22;
     }
 }
-
-// .button {
-//     background-color: #f4511e;
-//     border: none;
-//     color: white;
-//     padding: 16px 32px;
-//     text-align: center;
-//     font-size: 16px;
-//     margin: 4px 2px;
-//     opacity: 0.6;
-//     transition: 0.3s;
-//     display: inline-block;
-//     text-decoration: none;
-//     cursor: pointer;
-//   }
-  
-//   .button:hover {opacity: 1}

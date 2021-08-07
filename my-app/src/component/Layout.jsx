@@ -4,11 +4,10 @@ import Header from './Header.jsx'
 import Footer from './Footer.jsx'
 
 
-export default function Layout(props) 
-{
-    return (   
+export default function Layout(props) {
+    return (
         <div className="Layout">
-            <Header/>
+            <Header />
             <main className='Content_container'>
                 {props.children}
             </main>

@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import Layout from './Layout.jsx';
-// import { sleep } from './Functions.jsx';
 import { $_GET } from './Functions.jsx';
 import '../styles/Login.scss'
-
-
 
 async function changePWD(credentials) {
 
@@ -18,12 +15,9 @@ async function changePWD(credentials) {
 
 export default function ReinitMDP() {
     const monidurl = $_GET("mdpid:");
-
     const [password, setPassword] = useState("");
     const [buttonstop, setButtonStop] = useState(false);
-    // const [messageModification, setmessageModification] = useState("");
     const userId = monidurl;
-
 
     const handleSubmitchangePWD = async e => {
         e.preventDefault();
@@ -38,11 +32,7 @@ export default function ReinitMDP() {
         } else {
             setButtonStop(true);
             console.log("réinitialisation effectuée");
-
-            // setmessageModification("Votre mot de passe a bien été changé, vous allez être redirigé...");
-            
             window.location.href = '/Login';
-            //    window.sessionStorage.clear();
         }
     }
 
@@ -59,9 +49,6 @@ export default function ReinitMDP() {
                         <button type="submit" disabled={buttonstop} >Changer !</button>
                     </div>
                 </form>
-                {/* <div className="legende_modif_MDP">
-                    {messageModification}
-                </div> */}
             </div>
         </Layout>
     );

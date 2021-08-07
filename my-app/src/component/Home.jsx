@@ -6,18 +6,18 @@ import PostsList from './PostsList.jsx';
 import OnePost from './OnePost.jsx';
 
 
-export default function Home() { //ajouter state : si cliqué afficher 1 élément si non postlist
+export default function Home() {
 	const [unPost, afficherUnPost] = useState(false);
 	const [postid, chooseId] = useState(0);
-  return (<div>
-	  		<Layout>
-			  <NavBar />
-   			<div className='GroupoMaxContainer'>
-			   {unPost ? 
-			   <OnePost afficherUnPost={afficherUnPost} postid={postid}/>
-			    : <PostsList afficheUnPost={afficherUnPost} chooseId={chooseId}/>}
-   			</div>
-			  </Layout>
-   		</div>)
-  ;
+	return (<div>
+		<Layout>
+			<NavBar />
+			<div className='GroupoMaxContainer'>
+				{unPost ?
+					<OnePost afficherUnPost={afficherUnPost} postid={postid} />
+					: <PostsList afficheUnPost={afficherUnPost} chooseId={chooseId} />}
+			</div>
+		</Layout>
+	</div>)
+		;
 }

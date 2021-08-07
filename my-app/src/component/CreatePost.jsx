@@ -38,8 +38,8 @@ class CreatePost extends React.Component {
       filepicture: URL.createObjectURL(event.target.files[0]),
       image: event.target.files[0],
       filename: event.target.files[0].name,
-      booldisplaypic : true,
-      buttonstop : false
+      booldisplaypic: true,
+      buttonstop: false
     })
   }
 
@@ -61,7 +61,7 @@ class CreatePost extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    // console.log('Le titre du post : ' + this.state.titre + ', Limage liée : ' + this.state.image + ', la date du jour : ' + this.state.datedujour);
+
     const formdata = new FormData()
     formdata.append('image', this.state.image)
     formdata.append('titre', this.state.titre)
@@ -69,9 +69,7 @@ class CreatePost extends React.Component {
     formdata.append('datedujour', dateDuJour())
     formdata.append('userId', this.state.userId)
     formdata.append('userCreation', this.state.userName)
-    //   for (var value of formdata.values()) {
-    //     console.log(value); //ok
-    //  }
+
     axios.post("http://localhost:3000/createPost",
       formdata, {
       headers: {
@@ -81,7 +79,7 @@ class CreatePost extends React.Component {
     })
       .then((reponse) => {
         console.log(reponse);
-        if( reponse.statusText === "OK") {
+        if (reponse.statusText === "OK") {
           console.log("ok")
           this.setState({
             messageCreation: "Post créé !",
@@ -89,7 +87,6 @@ class CreatePost extends React.Component {
           })
         }
       })
-    
   }
 
   handleClick(event) {
@@ -112,16 +109,15 @@ class CreatePost extends React.Component {
               name="file"
               ref={this.hiddenFileInput}
               onChange={this.handleFileChange} />
-              <div className="div_button_create_post_image">
+            <div className="div_button_create_post_image">
               <button className="button_create_post_image" onClick={this.handleClick}>
-              Upload a file
+                Upload a file
               </button>
-              </div>
+            </div>
             <img className={`create_post_image${this.state.booldisplaypic ? "" : "_disabled"}`} src={this.state.filepicture} alt="Votre post" />
-            {/* <img className="create_post_image" src={this.state.filepicture} alt="Votre post" /> */}
             <br />
             <div className="div_button_create_post_submit">
-            <button className="button_create_post_submit" type='submit' disabled={this.state.buttonstop}>Poster !</button>
+              <button className="button_create_post_submit" type='submit' disabled={this.state.buttonstop}>Poster !</button>
             </div>
           </form>
           <div className="legende_create_post">

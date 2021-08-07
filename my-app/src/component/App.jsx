@@ -14,7 +14,6 @@ export default function App() {
 		let veriftoken = JSON.parse(window.sessionStorage.getItem('dataUser'));
 		fetch('http://localhost:3000/', {
 			method: 'POST',
-			// headers: {'Content-Type': 'text/plain'},
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(veriftoken),
 		})
@@ -29,9 +28,7 @@ export default function App() {
 			return <MonSwitch />
 		}
 		else {
-			const maurl = new URL(window.location.href); // url vaut l'url de la page en cours
-			// console.log(monurl.href);
-
+			const maurl = new URL(window.location.href);
 			if (maurl.href.includes("mdpid")) {
 				return <ReinitMDP />
 			} else {
@@ -43,9 +40,7 @@ export default function App() {
 	if (!token) {
 		sessionStorage.clear();
 
-		const monurl = new URL(window.location.href); // url vaut l'url de la page en cours
-		// console.log(monurl.href);
-
+		const monurl = new URL(window.location.href);
 		if (monurl.href.includes("mdpid")) {
 			return <ReinitMDP />
 		} else {
@@ -59,7 +54,6 @@ export default function App() {
 	} else {
 		setConnected(true);
 	}
-
 
 	return (
 		<div >

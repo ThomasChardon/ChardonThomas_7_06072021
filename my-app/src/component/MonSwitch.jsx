@@ -19,7 +19,7 @@ export const MonSwitch = () => {
         <Redirect to="/Posts" />
       </Switch>
     </BrowserRouter>
-    );
+  );
 }
 
 export default MonSwitch;
