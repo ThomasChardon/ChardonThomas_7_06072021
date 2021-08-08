@@ -30,7 +30,7 @@ Front-End :
 <br/>
 Pour le Back-end :  
 
-* Dans le terminal, ouvrir le dossier backend et taper "npm install -g nodemon".
+* Dans le terminal, ouvrir le dossier backend et taper "npm install".
 
 * Pour pouvoir se connecter à la base de données MongoDB, il faut renseigner un fichier .env à la racine du backend :
 
